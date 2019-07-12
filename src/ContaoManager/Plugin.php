@@ -27,8 +27,8 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(EstateManagerProject::class)
-                ->setLoadAfter([ContaoCoreBundle::class])
-                ->setReplace(['estatemanagerproject']),
+                ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class])
+                ->setReplace(['estatemanager-project']),
         ];
     }
 }
