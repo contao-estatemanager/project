@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_module.realEstateProjectTemplate.0">
+        <source>Project Template</source>
+        <target>Projekt Template</target>
+      </trans-unit>
+      <trans-unit id="tl_module.realEstateProjectTemplate.1">
+        <source>Here you can overwrite the default template.</source>
+        <target>Hier können Sie das Standard-Template überschreiben.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.jumpToProject.0">
+        <source>Project redirect page</source>
+        <target>Projekt Weiterleitungsseite</target>
+      </trans-unit>
+      <trans-unit id="tl_module.jumpToProject.1">
+        <source>Please choose the page to which visitors will be redirected when clicking a project link.</source>
+        <target>Bitte wählen Sie die Seite aus, zu der Besucher beim Anklicken eines Neubauprojekt-Links weitergeleitet werden.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.childrenObserveFiltering.0">
+        <source>Apply filtering to children</source>
+        <target>Filterung auf Wohneinheiten anwenden</target>
+      </trans-unit>
+      <trans-unit id="tl_module.childrenObserveFiltering.1">
+        <source>Indicates whether the children of a project should react to the filtering. Otherwise, all children are output regardless of the filter setting.</source>
+        <target>Gibt an, ob die Wohneinheiten eines Projektes auf die Filterung reagieren sollen. Andernfalls werden unabhängig der Filterinstellung alle Wohneinheiten ausgegeben.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

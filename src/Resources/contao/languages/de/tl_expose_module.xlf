@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_expose_module.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_expose_module.projectDetails.0">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectDetails.1">
+        <source>Specify here which details are to be output.</source>
+        <target>Geben Sie hier an, welche Details ausgegeben werden sollen</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectDetailsTemplate.0">
+        <source>Project Details Template</source>
+        <target>Projekt-Details Template</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectDetailsTemplate.1">
+        <source>Here you can overwrite the default template.</source>
+        <target>Hier können Sie das Standard-Template überschreiben.</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectChildrenListTemplate.0">
+        <source>Project children list Template</source>
+        <target>Projekt Wohneinheiten-Liste Template</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectChildrenListTemplate.1">
+        <source>Here you can overwrite the default template.</source>
+        <target>Hier können Sie das Standard-Template überschreiben.</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectMarketingStatusTemplate.0">
+        <source>Project marketing status Template</source>
+        <target>Projekt Vermarktungsfortschritt Template</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectMarketingStatusTemplate.1">
+        <source>Here you can overwrite the default template.</source>
+        <target>Hier können Sie das Standard-Template überschreiben.</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.childrenObserveFiltering.0">
+        <source>Apply filtering to children</source>
+        <target>Filterung auf Wohneinheiten anwenden</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.childrenObserveFiltering.1">
+        <source>Indicates whether the children of a project should react to the filtering. Otherwise, all children are output regardless of the filter setting.</source>
+        <target>Gibt an, ob die Wohneinheiten eines Projektes auf die Filterung reagieren sollen. Andernfalls werden unabhängig der Filterinstellung alle Wohneinheiten ausgegeben.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

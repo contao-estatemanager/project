@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_real_estate_expose.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_real_estate_expose.button_project">
+        <source>Show project</source>
+        <target>Zum Projekt</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate_expose.project_marketing_status">
+        <source>%s%% marketed</source>
+        <target>%s%% vermartet</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

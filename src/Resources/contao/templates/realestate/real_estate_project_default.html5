@@ -1,0 +1,50 @@
+<div class="real_estate_project_default block<?= $this->class ?>">
+    <div class="inner">
+      <div class="main-image">
+        <a href="<?= $this->link ?>" title="<?= $this->title ?>">
+          <?php $this->insert('image', $this->arrData); ?>
+        </a>
+      </div>
+
+      <div class="title"><?= $this->linkHeadline ?></div>
+      <div class="address"><?= $this->address ?></div>
+
+      <div class="details">
+          <?php foreach($this->details as $key => $field): ?>
+              <div class="detail <?= $key ?>">
+                  <span class="label"><?= $field['label'] ?></span>
+                  <?php foreach($field['details'] as $detail): ?>
+                      <span class="<?= $detail['key'] ?><?= $detail['class'] ? ' ' . $detail['class'] : ''?>">
+                          <span class="label"><?= $detail['label'] ?></span>
+                          <span class="value"><?= $detail['value'] ?></span>
+                      </span>
+                  <?php endforeach; ?>
+              </div>
+          <?php endforeach; ?>
+
+          <div class="detail number-children">
+              <span class="label"><?= $this->labelNumberOfChildren ?></span>
+              <span class="value"><?= $this->numberOfChildren?></span>
+          </div>
+      </div>
+
+      <div class="bottom">
+        <div class="project-link"><?= $this->linkProject ?></div>
+      </div>
+
+      <?php if ($this->addProvider): ?>
+          <?= $this->provider ?>
+      <?php endif; ?>
+
+      <?php if ($this->addContactPerson): ?>
+          <?= $this->contactPerson ?>
+      <?php endif; ?>
+
+      <div class="children">
+          <h3><?= $this->labelChildren ?></h3>
+          <?php foreach ($this->children as $children): ?>
+              <?= $children ?>
+          <?php endforeach; ?>
+      </div>
+    </div>
+</div>
