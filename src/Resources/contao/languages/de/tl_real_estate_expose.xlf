@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="tl_real_estate_expose.project_marketing_status">
         <source>%s%% marketed</source>
-        <target>%s%% vermartet</target>
+        <target>%s%% vermarktet</target>
       </trans-unit>
     </body>
   </file>
