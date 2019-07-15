@@ -154,7 +154,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                     // set information to template
                     $objTemplate->title        = $realEstate->getTitle();
                     $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
-                    $objTemplate->linkExpose   = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
+                    $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
                     $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
                     $objTemplate->address      = $realEstate->getLocationString();
                     $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
