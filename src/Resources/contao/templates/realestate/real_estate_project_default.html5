@@ -44,9 +44,11 @@
       </div>
       <div class="children">
           <h3><?= $this->labelChildren ?></h3>
-          <?php foreach ($this->children as $children): ?>
-              <?= $children ?>
-          <?php endforeach; ?>
+          <div class="children-list">
+              <?php foreach ($this->children as $children): ?>
+                  <?= $children ?>
+              <?php endforeach; ?>
+          </div>
       </div>
     </div>
 </div>
