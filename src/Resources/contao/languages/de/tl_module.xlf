@@ -26,6 +26,14 @@
         <source>Indicates whether the children of a project should react to the filtering. Otherwise, all children are output regardless of the filter setting.</source>
         <target>Gibt an, ob die Wohneinheiten eines Projektes auf die Filterung reagieren sollen. Andernfalls werden unabhängig der Filterinstellung alle Wohneinheiten ausgegeben.</target>
       </trans-unit>
+      <trans-unit id="tl_module.projectImgSize.0">
+        <source>Project image size</source>
+        <target>Projekt Bildgröße</target>
+      </trans-unit>
+      <trans-unit id="tl_module.projectImgSize.1">
+        <source>Here you can define the dimensions of the image for projects and the scaling mode.</source>
+        <target>Hier können Sie die Abmessungen des Bildes für Projekte und den Skalierungsmodus festlegen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

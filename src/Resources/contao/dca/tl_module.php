@@ -15,7 +15,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     // Add module palette for projects
     array_insert($GLOBALS['TL_DCA']['tl_module']['palettes'], 0, array
     (
-        'realEstateProjectList'  => '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
+        'realEstateProjectList'  => '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
     ));
 
     // Add field
@@ -47,6 +47,19 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'inputType'               => 'checkbox',
             'eval'                    => array('tl_class'=>'w50 m12'),
             'sql'                     => "char(1) NOT NULL default ''"
+        ),
+        'projectImgSize' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_module']['projectImgSize'],
+            'exclude'                 => true,
+            'inputType'               => 'imageSize',
+            'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+            'eval'                    => array('rgxp'=>'natural', 'includeBlankOption'=>true, 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
+            'options_callback' => function ()
+            {
+                return System::getContainer()->get('contao.image.image_sizes')->getOptionsForUser(BackendUser::getInstance());
+            },
+            'sql'                     => "varchar(64) NOT NULL default ''"
         )
     ));
 }

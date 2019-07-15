@@ -180,7 +180,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                     }
 
                     // set real estate image
-                    $objTemplate->addImage = $this->addMainImageToTemplate($objTemplate, $realEstate);
+                    $objTemplate->addImage = $this->addMainImageToTemplate($objTemplate, $realEstate, $this->projectImgSize);
 
                     if (isset($GLOBALS['TL_HOOKS']['parseRealEstateProject']) && \is_array($GLOBALS['TL_HOOKS']['parseRealEstateProject']))
                     {
