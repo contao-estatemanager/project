@@ -54,7 +54,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['projectDetails'],
             'exclude'                 => true,
             'inputType'               => 'checkboxWizard',
-            'options'                 => array('price', 'area', 'room'),
+            'options'                 => array('price', 'area', 'room', 'children'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_real_estate_misc'],
             'eval'                    => array('multiple'=>true),
             'sql'                     => "blob NULL"

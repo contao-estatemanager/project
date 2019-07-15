@@ -11,6 +11,7 @@
 namespace ContaoEstateManager\Project;
 
 use ContaoEstateManager\ExposeModule;
+use ContaoEstateManager\Translator;
 
 /**
  * Expose module "project details".
@@ -58,6 +59,23 @@ class ExposeModuleProjectDetails extends ExposeModule
         if($arrDetails)
         {
             $arrProjectDetails = Project::getProjectSpecificDetails($this->realEstate);
+
+            if(in_array('children', $arrDetails))
+            {
+                $childLabel = Translator::translateLabel('project_children');
+
+                $arrProjectDetails = array_merge(
+                    $arrProjectDetails,
+                    array('children' => array(
+                        'label'   => $childLabel,
+                        'details' => array(array(
+                            'label' => $childLabel,
+                            'key'   => 'children',
+                            'value' => Project::getNumberOfChildren($this->realEstate)
+                        ))
+                    ))
+                );
+            }
 
             if($arrProjectDetails)
             {

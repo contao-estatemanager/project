@@ -188,6 +188,26 @@ class Project
         return $details;
     }
 
+    public static function getNumberOfChildren($realEstate)
+    {
+        $masterId = $realEstate->master ?: $realEstate->gruppenKennung;
+
+        if($masterId)
+        {
+            $t = static::$strTable;
+
+            $arrColumns = array(
+                "$t.published='1'",
+                "$t.master=''",
+                "$t.gruppenKennung=?"
+            );
+
+            $arrValues = array($masterId);
+
+            return RealEstateModel::countBy($arrColumns, $arrValues, array());
+        }
+    }
+
     /**
      * Add status token for project objects
      *
