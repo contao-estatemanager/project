@@ -2,8 +2,10 @@
 
 <?php $this->block('content'); ?>
 
-<?php foreach($this->realEstates as $realEstate):?>
-    <?=$realEstate?>
-<?php endforeach; ?>
+<div class="list">
+    <?php foreach($this->realEstates as $realEstate):?>
+        <?=$realEstate?>
+    <?php endforeach; ?>
+</div>
 
 <?php $this->endblock(); ?>
