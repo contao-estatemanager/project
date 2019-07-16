@@ -158,6 +158,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                     $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
                     $objTemplate->address      = $realEstate->getLocationString();
                     $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
+                    $objTemplate->available    = $realEstate->formatter->getFormattedCollection('verfuegbarAb');
 
                     $objTemplate->labelChildren         = Translator::translateLabel('project_children_label');
                     $objTemplate->labelNumberOfChildren = Translator::translateLabel('anzahl_wohneinheiten');

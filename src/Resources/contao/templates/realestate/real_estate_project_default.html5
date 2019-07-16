@@ -28,6 +28,13 @@
                   <span class="label"><?= $this->labelNumberOfChildren ?></span>
                   <span class="value"><?= $this->numberOfChildren?></span>
               </div>
+
+              <?php if($this->available['value']): ?>
+                  <div class="detail <?=$this->available['key']?><?= $this->available['class'] ? ' ' . $this->available['class'] : ''?>">
+                      <span class="label"><?= $this->available['label'] ?></span>
+                      <span class="value"><?= $this->available['value'] ?></span>
+                  </div>
+              <?php endif; ?>
           </div>
 
           <div class="bottom">
