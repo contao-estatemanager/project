@@ -38,4 +38,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
 
     $GLOBALS['TL_HOOKS']['parseRealEstate'][] = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
     $GLOBALS['TL_HOOKS']['compileExposeStatusToken'][] = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
+
+    $GLOBALS['TL_HOOKS']['compileRealEstateGoogleMap'][] = array('ContaoEstateManager\\Project\\Project', 'compileGoogleMapConfig');
+    $GLOBALS['TL_HOOKS']['readEstatesControllerParameter'][] = array('ContaoEstateManager\\Project\\Project', 'setEstatesControllerParameter');
 }

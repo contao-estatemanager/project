@@ -48,6 +48,49 @@ class Project
     }
 
     /**
+     * Set mode param for google maps showing projects
+     *
+     * @param $template
+     * @param $mapConfig
+     * @param $context
+     */
+    public function compileGoogleMapConfig(&$template, &$mapConfig, $context)
+    {
+        if($context->showProjects)
+        {
+            $mapConfig['source']['param']['filter'] = false;
+            $mapConfig['source']['param']['mode'] = 'project';
+        }
+    }
+
+    /**
+     * Set filter parameter for projects by mode
+     *
+     * @param $arrColumns
+     * @param $arrValues
+     * @param $arrOptions
+     * @param $currParam
+     * @param $context
+     */
+    public function setEstatesControllerParameter(&$arrColumns, &$arrValues, &$arrOptions, $currParam, $context)
+    {
+        $t = static::$strTable;
+
+        if($currParam['mode'] === 'project')
+        {
+            foreach ($arrColumns as $key => $column)
+            {
+                if(strpos($column, "master=''"))
+                {
+                    unset($arrColumns[$key]);
+                }
+            }
+
+            $arrColumns[] = "$t.master!=''";
+        }
+    }
+
+    /**
      * Returns project marketing status
      *
      * @param  $masterId

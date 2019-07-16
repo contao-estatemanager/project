@@ -2,6 +2,14 @@
 <xliff version="1.1">
   <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
     <body>
+      <trans-unit id="tl_module.showProjects.0">
+        <source>Only show Projects</source>
+        <target>Nur Neubauprojekte anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.showProjects.1">
+        <source>Reduces the markers to be displayed to projects.</source>
+        <target>Reduziert die anzuzeigenden Marker auf Neubauprojekte.</target>
+      </trans-unit>
       <trans-unit id="tl_module.realEstateProjectTemplate.0">
         <source>Project Template</source>
         <target>Projekt Template</target>
