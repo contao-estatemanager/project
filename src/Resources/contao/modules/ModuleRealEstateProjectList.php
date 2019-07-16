@@ -75,6 +75,16 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             $this->strTemplate = $this->customTpl;
         }
 
+        // HOOK: real estate result project list generate
+        if (isset($GLOBALS['TL_HOOKS']['generateRealEstateProjectList']) && \is_array($GLOBALS['TL_HOOKS']['generateRealEstateProjectList']))
+        {
+            foreach ($GLOBALS['TL_HOOKS']['generateRealEstateProjectList'] as $callback)
+            {
+                $this->import($callback[0]);
+                $this->{$callback[0]}->{$callback[1]}($this);
+            }
+        }
+
         return parent::generate();
     }
 
