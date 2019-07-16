@@ -63,6 +63,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         (
             'label'                     => &$GLOBALS['TL_LANG']['tl_real_estate']['gruppenKennung'],
             'inputType'                 => 'text',
+            'filter'                    => true,
             'eval'                      => array('maxlength'=>32, 'tl_class'=>'w50'),
             'sql'                       => "varchar(32) NOT NULL default ''",
             'realEstate'                => array(
