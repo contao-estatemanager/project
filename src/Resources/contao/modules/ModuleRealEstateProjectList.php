@@ -123,11 +123,9 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
         if(count($projectIds))
         {
-            // ToDO: Es gibt keine gruppen, null übergeben -> Kinder können nicht gefiltert werden
             list($arrColumns, $arrValues, $arrOptions) = $this->objFilterSession->getParameter($this->realEstateGroups, $this->filterMode, !!$this->childrenObserveFiltering);
 
             $arrColumns[] = "$this->strTable.gruppenKennung IN(" . implode(",", $projectIds) . ")";
-            $arrColumns[] = "$this->strTable.master=''";
 
             $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, $arrOptions);
 
@@ -137,7 +135,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 if(!!$this->childrenObserveFiltering)
                 {
                     $arrNumberOfChildren = array();
-                    $objNumberOfChildren = $this->Database->prepare("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(?) AND master='' GROUP BY gruppenKennung")->execute(implode(",", $projectIds));
+                    $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(" . implode(',', $projectIds) . ") AND master='' GROUP BY gruppenKennung");
 
                     while ($objNumberOfChildren->next())
                     {

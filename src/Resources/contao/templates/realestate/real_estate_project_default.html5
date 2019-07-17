@@ -49,13 +49,15 @@
               <?= $this->contactPerson ?>
           <?php endif; ?>
       </div>
-      <div class="children">
-          <h3><?= $this->labelChildren ?></h3>
-          <div class="children-list">
-              <?php foreach ($this->children as $children): ?>
-                  <?= $children ?>
-              <?php endforeach; ?>
+      <?php if(count($this->children)): ?>
+          <div class="children">
+              <h3><?= $this->labelChildren ?></h3>
+              <div class="children-list">
+                  <?php foreach ($this->children as $children): ?>
+                      <?= $children ?>
+                  <?php endforeach; ?>
+              </div>
           </div>
-      </div>
+      <?php endif; ?>
     </div>
 </div>

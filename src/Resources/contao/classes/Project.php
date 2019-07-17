@@ -231,6 +231,13 @@ class Project
         return $details;
     }
 
+    /**
+     * Returns number of children from master object or child object
+     *
+     * @param $realEstate
+     *
+     * @return mixed
+     */
     public static function getNumberOfChildren($realEstate)
     {
         $masterId = $realEstate->master ?: $realEstate->gruppenKennung;
