@@ -78,7 +78,6 @@ class ExposeModuleProjectChildrenList extends ExposeModule
             return;
         }
 
-        // ToDo: Ohne gruppen kann derzeit nicht auf die Filterung geprüft werden
         list($arrColumns, $arrValues, $arrOptions) = $this->objFilterSession->getParameter(null, null, !!$this->childrenObserveFiltering);
 
         $arrColumns[] = "$this->strTable.gruppenKennung=?";
