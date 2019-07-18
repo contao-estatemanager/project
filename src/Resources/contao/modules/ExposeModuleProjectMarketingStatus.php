@@ -47,7 +47,7 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
 
         $strBuffer = parent::generate();
 
-        return ($this->skipMarketingStatus) ? '' : $strBuffer;
+        return ($this->isEmpty) ? '' : $strBuffer;
     }
 
     /**
@@ -57,9 +57,9 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
     {
         $intPercent = Project::getProjectMarketingStatus($this->realEstate);
 
-        if($this->hideOnZeroPercent && $intPercent === 0)
+        if($this->hideOnZeroPercent && intval($intPercent) === 0)
         {
-            $this->skipMarketingStatus = true;
+            $this->isEmpty = true;
         }
 
         $this->Template->marketingStatus = sprintf(Translator::translateExpose('project_marketing_status'), $intPercent);
