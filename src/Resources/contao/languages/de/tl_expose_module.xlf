@@ -42,6 +42,14 @@
         <source>Indicates whether the children of a project should react to the filtering. Otherwise, all children are output regardless of the filter setting.</source>
         <target>Gibt an, ob die Wohneinheiten eines Projektes auf die Filterung reagieren sollen. Andernfalls werden unabhängig der Filterinstellung alle Wohneinheiten ausgegeben.</target>
       </trans-unit>
+      <trans-unit id="tl_expose_module.hideOnZeroPercent.0">
+        <source>Hide at 0%</source>
+        <target>Bei 0% ausblenden</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.hideOnZeroPercent.1">
+        <source>Hides the module at a return value of 0%.</source>
+        <target>Blendet das Modul bei einer Rückgabe von 0% aus</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

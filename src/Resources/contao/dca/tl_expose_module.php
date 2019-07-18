@@ -14,7 +14,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     (
         'projectDetails'          => '{title_legend},name,headline,type;{settings_legend},projectDetails;{template_legend:hide},customTpl,projectDetailsTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
         'projectChildrenList'     => '{title_legend},name,headline,type;{settings_legend},childrenObserveFiltering,jumpTo;{image_legend:hide},imgSize;{template_legend:hide},customTpl,projectChildrenListTemplate,realEstateTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-        'projectMarketingStatus'  => '{title_legend},name,headline,type;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+        'projectMarketingStatus'  => '{title_legend},name,headline,type;{settings_legend},hideOnZeroPercent;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
     ));
 
     // Add fields
@@ -62,6 +62,14 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         'childrenObserveFiltering' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['childrenObserveFiltering'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'eval'                    => array('tl_class'=>'w50 m12'),
+            'sql'                     => "char(1) NOT NULL default ''"
+        ),
+        'hideOnZeroPercent' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['hideOnZeroPercent'],
             'exclude'                 => true,
             'inputType'               => 'checkbox',
             'eval'                    => array('tl_class'=>'w50 m12'),

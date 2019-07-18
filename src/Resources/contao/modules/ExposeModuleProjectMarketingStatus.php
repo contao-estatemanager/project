@@ -45,7 +45,9 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
             return $objTemplate->parse();
         }
 
-        return parent::generate();
+        $strBuffer = parent::generate();
+
+        return ($this->skipMarketingStatus) ? '' : $strBuffer;
     }
 
     /**
@@ -54,6 +56,12 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
     protected function compile()
     {
         $intPercent = Project::getProjectMarketingStatus($this->realEstate);
+
+        if($this->hideOnZeroPercent && $intPercent === 0)
+        {
+            $this->skipMarketingStatus = true;
+        }
+
         $this->Template->marketingStatus = sprintf(Translator::translateExpose('project_marketing_status'), $intPercent);
     }
 }
