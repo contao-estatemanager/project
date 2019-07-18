@@ -93,13 +93,18 @@ class Project
     /**
      * Returns project marketing status
      *
-     * @param  $masterId
+     * @param  $objMaster
      *
      * @return integer: marketing status in percent
      */
-    public static function getProjectMarketingStatus($masterId)
+    public static function getProjectMarketingStatus($objMaster)
     {
         $t = static::$strTable;
+
+        if(!!$objMaster->referenz)
+        {
+            return 100;
+        }
 
         $arrColumns = array(
             "$t.published='1'",
@@ -107,7 +112,7 @@ class Project
             "$t.gruppenKennung=?"
         );
 
-        $arrValues = array($masterId);
+        $arrValues = array($objMaster->master);
 
         $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, array());
 
@@ -240,6 +245,12 @@ class Project
      */
     public static function getNumberOfChildren($realEstate)
     {
+        // If we have received a master property and the number of units has been transferred, we can return it
+        if(!!$realEstate->master && $realEstate->anzahlWohneinheiten)
+        {
+            return $realEstate->formatter->formatValue('anzahlWohneinheiten');
+        }
+
         $masterId = $realEstate->master ?: $realEstate->gruppenKennung;
 
         if($masterId)

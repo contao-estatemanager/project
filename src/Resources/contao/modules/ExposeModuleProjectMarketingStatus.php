@@ -53,7 +53,7 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
      */
     protected function compile()
     {
-        $intPercent = Project::getProjectMarketingStatus($this->realEstate->master);
+        $intPercent = Project::getProjectMarketingStatus($this->realEstate);
         $this->Template->marketingStatus = sprintf(Translator::translateExpose('project_marketing_status'), $intPercent);
     }
 }

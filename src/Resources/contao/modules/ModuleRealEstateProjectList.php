@@ -126,82 +126,96 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             list($arrColumns, $arrValues, $arrOptions) = $this->objFilterSession->getParameter($this->realEstateGroups, $this->filterMode, !!$this->childrenObserveFiltering);
 
             $arrColumns[] = "$this->strTable.gruppenKennung IN(" . implode(",", $projectIds) . ")";
+            $arrColumns[] = "$this->strTable.master=''";
 
             $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, $arrOptions);
 
+            // get real number of all children if needed (without filter parameters)
+            if(!!$this->childrenObserveFiltering)
+            {
+                $arrNumberOfChildren = array();
+                $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(" . implode(',', $projectIds) . ") AND master='' GROUP BY gruppenKennung");
+
+                while ($objNumberOfChildren->next())
+                {
+                    $arrNumberOfChildren[ $objNumberOfChildren->gruppenKennung ] = $objNumberOfChildren->cnt;
+                }
+            }
+
+            // assign parsed children to projects
             if($objChildren !== null)
             {
-                // get real number of all children if needed (without filter parameters)
-                if(!!$this->childrenObserveFiltering)
-                {
-                    $arrNumberOfChildren = array();
-                    $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(" . implode(',', $projectIds) . ") AND master='' GROUP BY gruppenKennung");
-
-                    while ($objNumberOfChildren->next())
+                    while($objChildren->next())
                     {
-                        $arrNumberOfChildren[ $objNumberOfChildren->gruppenKennung ] = $objNumberOfChildren->cnt;
+                        $arrProjects[ $objChildren->gruppenKennung ]['children'][] = $this->parseRealEstate($objChildren->current());
+                    }
+            }
+
+            $objProjects->reset();
+
+            while($objProjects->next())
+            {
+                $realEstate  = new RealEstate($objProjects->current(), null);
+                $objTemplate = new \FrontendTemplate($this->strProjectTemplate);
+
+                $objTemplate->realEstateId = $objProjects->id;
+                $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'] ?: array();
+
+                // set information to template
+                $objTemplate->title        = $realEstate->getTitle();
+                $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
+                $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
+                $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
+                $objTemplate->address      = $realEstate->getLocationString();
+                $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
+                $objTemplate->available    = $realEstate->formatter->getFormattedCollection('verfuegbarAb');
+
+                $objTemplate->labelChildren         = Translator::translateLabel('project_children_label');
+                $objTemplate->labelNumberOfChildren = Translator::translateLabel('anzahl_wohneinheiten');
+
+                if($realEstate->anzahlWohneinheiten)
+                {
+                    $objTemplate->numberOfChildren = $realEstate->formatter->formatValue('anzahlWohneinheiten');
+                }
+                elseif(!!$this->childrenObserveFiltering)
+                {
+                    $objTemplate->numberOfChildren = $arrNumberOfChildren[ $objProjects->master ];
+                }
+                else
+                {
+                    $objTemplate->numberOfChildren = count($arrProjects[ $objProjects->master ]['children']);
+                }
+
+                // add provider
+                $objTemplate->addProvider = !!$this->addProvider;
+
+                if($this->addProvider)
+                {
+                    $objTemplate->provider = $this->parseProvider($realEstate);
+                }
+
+                // add contact person
+                $objTemplate->addContactPerson = !!$this->addContactPerson;
+
+                if($this->addContactPerson)
+                {
+                    $objTemplate->contactPerson = $this->parseContactPerson($realEstate);
+                }
+
+                // set real estate image
+                $objTemplate->addImage = $this->addMainImageToTemplate($objTemplate, $realEstate, $this->projectImgSize);
+
+                if (isset($GLOBALS['TL_HOOKS']['parseRealEstateProject']) && \is_array($GLOBALS['TL_HOOKS']['parseRealEstateProject']))
+                {
+                    foreach ($GLOBALS['TL_HOOKS']['parseRealEstateProject'] as $callback)
+                    {
+                        $this->import($callback[0]);
+                        $this->{$callback[0]}->{$callback[1]}($objTemplate, $realEstate, $this);
                     }
                 }
 
-                // assign parsed children to projects
-                while($objChildren->next())
-                {
-                    $arrProjects[ $objChildren->gruppenKennung ]['children'][] = $this->parseRealEstate($objChildren->current());
-                }
+                $arrRealEstates[] = $objTemplate->parse();
 
-                $objProjects->reset();
-
-                while($objProjects->next())
-                {
-                    $realEstate  = new RealEstate($objProjects->current(), null);
-                    $objTemplate = new \FrontendTemplate($this->strProjectTemplate);
-
-                    $objTemplate->realEstateId = $objProjects->id;
-                    $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'];
-
-                    // set information to template
-                    $objTemplate->title        = $realEstate->getTitle();
-                    $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
-                    $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
-                    $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
-                    $objTemplate->address      = $realEstate->getLocationString();
-                    $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
-                    $objTemplate->available    = $realEstate->formatter->getFormattedCollection('verfuegbarAb');
-
-                    $objTemplate->labelChildren         = Translator::translateLabel('project_children_label');
-                    $objTemplate->labelNumberOfChildren = Translator::translateLabel('anzahl_wohneinheiten');
-                    $objTemplate->numberOfChildren      = $this->childrenObserveFiltering ? $arrNumberOfChildren[ $objProjects->master ] : count($arrProjects[ $objProjects->master ]['children']);
-
-                    // add provider
-                    $objTemplate->addProvider = !!$this->addProvider;
-
-                    if($this->addProvider)
-                    {
-                        $objTemplate->provider = $this->parseProvider($realEstate);
-                    }
-
-                    // add contact person
-                    $objTemplate->addContactPerson = !!$this->addContactPerson;
-
-                    if($this->addContactPerson)
-                    {
-                        $objTemplate->contactPerson = $this->parseContactPerson($realEstate);
-                    }
-
-                    // set real estate image
-                    $objTemplate->addImage = $this->addMainImageToTemplate($objTemplate, $realEstate, $this->projectImgSize);
-
-                    if (isset($GLOBALS['TL_HOOKS']['parseRealEstateProject']) && \is_array($GLOBALS['TL_HOOKS']['parseRealEstateProject']))
-                    {
-                        foreach ($GLOBALS['TL_HOOKS']['parseRealEstateProject'] as $callback)
-                        {
-                            $this->import($callback[0]);
-                            $this->{$callback[0]}->{$callback[1]}($objTemplate, $realEstate, $this);
-                        }
-                    }
-
-                    $arrRealEstates[] = $objTemplate->parse();
-                }
             }
         }
 
