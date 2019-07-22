@@ -16,9 +16,10 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     array_insert($GLOBALS['FE_EXPOSE_MOD'], -1, array
     (
         'project' => array(
-            'projectDetails' => '\\ContaoEstateManager\\Project\\ExposeModuleProjectDetails',
-            'projectChildrenList' => '\\ContaoEstateManager\\Project\\ExposeModuleProjectChildrenList',
-            'projectMarketingStatus' => '\\ContaoEstateManager\\Project\\ExposeModuleProjectMarketingStatus'
+            'projectDetails'          => '\\ContaoEstateManager\\Project\\ExposeModuleProjectDetails',
+            'projectChildrenList'     => '\\ContaoEstateManager\\Project\\ExposeModuleProjectChildrenList',
+            'projectMarketingStatus'  => '\\ContaoEstateManager\\Project\\ExposeModuleProjectMarketingStatus',
+            'projectCompletionStatus' => '\\ContaoEstateManager\\Project\\ExposeModuleProjectCompletionStatus'
         )
     ));
 
@@ -32,13 +33,13 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     ));
 
     // HOOKS
-    $GLOBALS['TL_HOOKS']['getTypeParameter'][] = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
-    $GLOBALS['TL_HOOKS']['getParameterByGroups'][] = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
-    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][] = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
+    $GLOBALS['TL_HOOKS']['getTypeParameter'][]          = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
+    $GLOBALS['TL_HOOKS']['getParameterByGroups'][]      = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
+    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][]  = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
 
-    $GLOBALS['TL_HOOKS']['parseRealEstate'][] = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
-    $GLOBALS['TL_HOOKS']['compileExposeStatusToken'][] = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
+    $GLOBALS['TL_HOOKS']['parseRealEstate'][]           = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
+    $GLOBALS['TL_HOOKS']['compileExposeStatusToken'][]  = array('ContaoEstateManager\\Project\\Project', 'addStatusToken');
 
-    $GLOBALS['TL_HOOKS']['compileRealEstateGoogleMap'][] = array('ContaoEstateManager\\Project\\Project', 'compileGoogleMapConfig');
+    $GLOBALS['TL_HOOKS']['compileRealEstateGoogleMap'][]     = array('ContaoEstateManager\\Project\\Project', 'compileGoogleMapConfig');
     $GLOBALS['TL_HOOKS']['readEstatesControllerParameter'][] = array('ContaoEstateManager\\Project\\Project', 'setEstatesControllerParameter');
 }

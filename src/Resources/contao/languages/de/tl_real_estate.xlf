@@ -22,6 +22,14 @@
         <source>If available, choose the parent object.</source>
         <target>Wählen Sie, sofern vorhanden, das übergeordnete Objekt</target>
       </trans-unit>
+      <trans-unit id="tl_real_estate.completionStatus.0">
+        <source>Status / Construction phase</source>
+        <target>Status / Bauphase</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.completionStatus.1">
+        <source>Specify the status/phase in which the project is currently in.</source>
+        <target>Geben Sie hier den Status / die Phase an, in der sich das Projekt befindet</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -14,17 +14,17 @@ use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\Translator;
 
 /**
- * Expose module "project maketing status".
+ * Expose module "project completion status".
  *
  * @author Daniele Sciannimanica <daniele@oveleon.de>
  */
-class ExposeModuleProjectMarketingStatus extends ExposeModule
+class ExposeModuleProjectCompletionStatus extends ExposeModule
 {
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'expose_mod_project_marketing_status';
+    protected $strTemplate = 'expose_mod_project_completion_status';
 
     /**
      * Do not display the module if there are no real estates
@@ -36,7 +36,7 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
         if (TL_MODE == 'BE')
         {
             $objTemplate = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_marketing_status'][0]) . ' ###';
+            $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_completion_status'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
@@ -55,13 +55,25 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
      */
     protected function compile()
     {
-        $intPercent = Project::getProjectMarketingStatus($this->realEstate);
+        $currStatus = $this->realEstate->completionStatus;
 
-        if($this->hideOnZeroPercent && intval($intPercent) === 0)
+        if(!$currStatus)
         {
             $this->isEmpty = true;
+            return false;
         }
 
-        $this->Template->marketingStatus = sprintf(Translator::translateExpose('project_marketing_status'), $intPercent);
+        $arrStatus = \StringUtil::deserialize($this->completionStatus, true);
+        $arrReturn = array();
+
+        foreach ($arrStatus as $status) {
+            $arrReturn[] = array(
+                'label'  => Translator::translate($status, 'tl_real_estate_project_misc'),
+                'active' => $currStatus >= $status,
+                'class'  => 'status-' . $status
+            );
+        }
+
+        $this->Template->completionStatus = $arrReturn;
     }
 }

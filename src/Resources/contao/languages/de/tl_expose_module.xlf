@@ -34,6 +34,14 @@
         <source>Here you can overwrite the default template.</source>
         <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
+      <trans-unit id="tl_expose_module.projectCompletionStatusTemplate.0">
+        <source>Project construction phase Template</source>
+        <target>Projekt Status / Bauphase Template</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.projectCompletionStatusTemplate.1">
+        <source>Here you can overwrite the default template.</source>
+        <target>Hier können Sie das Standard-Template überschreiben.</target>
+      </trans-unit>
       <trans-unit id="tl_expose_module.childrenObserveFiltering.0">
         <source>Apply filtering to children</source>
         <target>Filterung auf Wohneinheiten anwenden</target>
@@ -49,6 +57,14 @@
       <trans-unit id="tl_expose_module.hideOnZeroPercent.1">
         <source>Hides the module at a return value of 0%.</source>
         <target>Blendet das Modul bei einer Rückgabe von 0% aus</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.completionStatus.0">
+        <source>Status / Construction phase</source>
+        <target>Status / Bauphase</target>
+      </trans-unit>
+      <trans-unit id="tl_expose_module.completionStatus.1">
+        <source>Specify the available phases in which the project can be located.</source>
+        <target>Geben Sie hier die verfügbaren Phasen an, in der sich das Projekt befinden kann.</target>
       </trans-unit>
     </body>
   </file>

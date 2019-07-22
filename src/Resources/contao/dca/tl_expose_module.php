@@ -14,7 +14,8 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     (
         'projectDetails'          => '{title_legend},name,headline,type;{settings_legend},projectDetails;{template_legend:hide},customTpl,projectDetailsTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
         'projectChildrenList'     => '{title_legend},name,headline,type;{settings_legend},childrenObserveFiltering,jumpTo;{image_legend:hide},imgSize;{template_legend:hide},customTpl,projectChildrenListTemplate,realEstateTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-        'projectMarketingStatus'  => '{title_legend},name,headline,type;{settings_legend},hideOnZeroPercent;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
+        'projectMarketingStatus'  => '{title_legend},name,headline,type;{settings_legend},hideOnZeroPercent;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
+        'projectCompletionStatus' => '{title_legend},name,headline,type;{settings_legend},completionStatus;{template_legend:hide},customTpl,projectCompletionStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
     ));
 
     // Add fields
@@ -49,6 +50,16 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
+        'projectCompletionStatusTemplate' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['projectCompletionStatusTemplate'],
+            'default'                 => 'expose_mod_project_children_list',
+            'exclude'                 => true,
+            'inputType'               => 'select',
+            'options_callback'        => array('tl_expose_module_project', 'getProjectCompletionStatusTemplates'),
+            'eval'                    => array('tl_class'=>'w50'),
+            'sql'                     => "varchar(64) NOT NULL default ''"
+        ),
         'projectDetails' => array
         (
             'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['projectDetails'],
@@ -56,6 +67,16 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'inputType'               => 'checkboxWizard',
             'options'                 => array('price', 'area', 'room', 'children'),
             'reference'               => &$GLOBALS['TL_LANG']['tl_real_estate_misc'],
+            'eval'                    => array('multiple'=>true),
+            'sql'                     => "blob NULL"
+        ),
+        'completionStatus' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_expose_module']['completionStatus'],
+            'exclude'                 => true,
+            'inputType'               => 'checkbox',
+            'options'                 => array(10, 20, 30, 40, 50),
+            'reference'               => &$GLOBALS['TL_LANG']['tl_real_estate_project_misc'],
             'eval'                    => array('multiple'=>true),
             'sql'                     => "blob NULL"
         ),
@@ -127,5 +148,15 @@ class tl_expose_module_project extends \Backend
     public function getProjectChildrenListTemplates()
     {
         return $this->getTemplateGroup('expose_mod_project_children_list_');
+    }
+
+    /**
+     * Return all children list templates as array
+     *
+     * @return array
+     */
+    public function getProjectCompletionStatusTemplates()
+    {
+        return $this->getTemplateGroup('expose_mod_project_completion_status_');
     }
 }

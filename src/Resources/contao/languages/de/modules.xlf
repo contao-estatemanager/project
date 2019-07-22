@@ -38,6 +38,14 @@
         <source>Displays the progress of the marketing in %.</source>
         <target>Gibt den Fortschritt der Vermakrtung in % aus</target>
       </trans-unit>
+      <trans-unit id="FMD.projectCompletionStatus.0">
+        <source>Status / Construction phase</source>
+        <target>Projektstatus / Bauphase</target>
+      </trans-unit>
+      <trans-unit id="FMD.projectCompletionStatus.1">
+        <source>Displays the construction phase of project.</source>
+        <target>Gibt den Projektstatus / die Bauphasen aus</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

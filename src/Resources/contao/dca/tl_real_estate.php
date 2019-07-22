@@ -8,6 +8,9 @@
  * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
+// Load translations
+\System::loadLanguageFile('tl_real_estate_misc');
+
 if(ContaoEstateManager\Project\AddonManager::valid()) {
 
     // Add onsubmit callback
@@ -80,13 +83,25 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
                 'group'    => 'neubau',
                 'filter'   => true,
             )
+        ),
+        'completionStatus'  => array
+        (
+            'label'                     => &$GLOBALS['TL_LANG']['tl_real_estate']['completionStatus'],
+            'inputType'                 => 'select',
+            'eval'                      => array('maxlength'=>32, 'tl_class'=>'w50', 'includeBlankOption'=>true),
+            'options'                   => array(10, 20, 30, 40, 50),
+            'reference'                 => &$GLOBALS['TL_LANG']['tl_real_estate_project_misc'],
+            'sql'                       => "varchar(32) NOT NULL default ''",
+            'realEstate'                => array(
+                'group'    => 'neubau'
+            )
         )
     ));
 
     // Extend the default palettes
     Contao\CoreBundle\DataContainer\PaletteManipulator::create()
         ->addLegend('real_estate_project_legend', 'real_estate_media_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
-        ->addField(array('master', 'gruppenKennung', 'project_price_from', 'project_price_to', 'project_area_from', 'project_area_to', 'project_room_from', 'project_room_to'), 'real_estate_project_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+        ->addField(array('master', 'gruppenKennung', 'completionStatus', 'project_price_from', 'project_price_to', 'project_area_from', 'project_area_to', 'project_room_from', 'project_room_to'), 'real_estate_project_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
         ->applyToPalette('default', 'tl_real_estate')
     ;
 }

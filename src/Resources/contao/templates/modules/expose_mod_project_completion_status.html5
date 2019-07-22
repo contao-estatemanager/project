@@ -1,0 +1,11 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<ul>
+    <?php foreach ($this->completionStatus as $completionStatus): ?>
+        <li class="<?=$completionStatus['class']?><?=$completionStatus['active']?' active':''?>"><span><?=$completionStatus['label']?></span></li>
+    <?php endforeach; ?>
+</ul>
+
+<?php $this->endblock(); ?>
