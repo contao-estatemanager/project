@@ -18,6 +18,8 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         array('tl_real_estate_project', 'setMasterObjectInformation')
     ));
 
+    $GLOBALS['TL_DCA']['tl_real_estate']['list']['label']['post_label_callbacks'][] = array('tl_real_estate_project', 'addProjectInformation');
+
     // Add field
     array_insert($GLOBALS['TL_DCA']['tl_real_estate']['fields'], -1, array(
         'project_price_from' => array
@@ -141,5 +143,35 @@ class tl_real_estate_project extends Backend
         {
             // ToDo: Ermitteln der primären Felder mit anschließender prüfung ob diese in das Master-Objekt geschrieben werden muss (nur published bei unblished alle kinder durchlaufen und neuen wert setzen)
         }
+    }
+
+    /**
+     * Add reference flag
+     *
+     * @param array         $row
+     * @param string        $label
+     * @param DataContainer $dc
+     * @param array         $args
+     *
+     * @return array
+     */
+    public function addProjectInformation($row, $label, DataContainer $dc, $args)
+    {
+        if (!$row['gruppenKennung'] && !$row['master'])
+        {
+            return $args;
+        }
+
+        // add project information
+        if ($row['gruppenKennung'] && $row['master'])
+        {
+            $args[1] .= '<span style="color:#003f00;display:block;margin-top: 5px"><strong>Neubauprojekt</strong></span>';
+        }
+        else
+        {
+            $args[1] .= '<span style="color:#007f00;display:block;margin-top: 5px">Wohneinheit</span>';
+        }
+
+        return $args;
     }
 }
