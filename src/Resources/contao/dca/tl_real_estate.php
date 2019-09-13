@@ -165,11 +165,11 @@ class tl_real_estate_project extends Backend
         // add project information
         if ($row['gruppenKennung'] && $row['master'])
         {
-            $args[1] .= '<span style="color:#003f00;display:block;margin-top: 5px"><strong>Neubauprojekt</strong></span>';
+            $args[2] .= '<span style="color:#003f00;display:block;margin-top: 5px"><strong>Neubauprojekt</strong></span>';
         }
         else
         {
-            $args[1] .= '<span style="color:#007f00;display:block;margin-top: 5px">Wohneinheit</span>';
+            $args[2] .= '<span style="color:#007f00;display:block;margin-top: 5px">Wohneinheit</span>';
         }
 
         return $args;
