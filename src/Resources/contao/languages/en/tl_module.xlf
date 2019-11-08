@@ -1,46 +1,36 @@
 <?xml version="1.0" ?>
 <xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en">
     <body>
       <trans-unit id="tl_module.showProjects.0">
         <source>Only show projects</source>
-        <target>Nur Projekte anzeigen</target>
       </trans-unit>
       <trans-unit id="tl_module.showProjects.1">
         <source>Reduces the markers to be displayed to projects.</source>
-        <target>Reduziert die anzuzeigenden Marker auf Projekte.</target>
       </trans-unit>
       <trans-unit id="tl_module.realEstateProjectTemplate.0">
         <source>Project template</source>
-        <target>Projekt Template</target>
       </trans-unit>
       <trans-unit id="tl_module.realEstateProjectTemplate.1">
         <source>Here you can overwrite the default template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_module.jumpToProject.0">
         <source>Project forwarding page</source>
-        <target>Projekt Weiterleitungsseite</target>
       </trans-unit>
       <trans-unit id="tl_module.jumpToProject.1">
         <source>Please select the page to which visitors will be forwarded when clicking on a project link.</source>
-        <target>Bitte wählen Sie die Seite aus, auf die Besucher weitergeleitet werden, wenn sie auf einen Projektlink klicken.</target>
       </trans-unit>
       <trans-unit id="tl_module.childrenObserveFiltering.0">
         <source>Apply filtering to residential units</source>
-        <target>Filterung auf Wohneinheiten anwenden</target>
       </trans-unit>
       <trans-unit id="tl_module.childrenObserveFiltering.1">
         <source>Indicates if the residential units of a project should react to the filtering. Otherwise all residential units are output regardless of the filter settings.</source>
-        <target>Gibt an, ob die Wohneinheiten eines Projekts auf die Filterung reagieren sollen. Andernfalls werden alle Wohneinheiten unabhängig von den Filtereinstellungen ausgegeben.</target>
       </trans-unit>
       <trans-unit id="tl_module.projectImgSize.0">
         <source>Project picture size</source>
-        <target>Projekt Bildgröße</target>
       </trans-unit>
       <trans-unit id="tl_module.projectImgSize.1">
         <source>Here you can set the picture dimensions and the scaling mode.</source>
-        <target>Hier können Sie die Abmessungen des Bildes und den Skalierungsmodus festlegen.</target>
       </trans-unit>
     </body>
   </file>

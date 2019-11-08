@@ -1,50 +1,39 @@
 <?xml version="1.0" ?>
 <xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
     <body>
       <trans-unit id="FMD.project">
         <source>Projects</source>
-        <target>Projekte</target>
       </trans-unit>
       <trans-unit id="FMD.realEstateProjectList.0">
         <source>Real estate project list</source>
-        <target>Immobilien-Projekte</target>
       </trans-unit>
       <trans-unit id="FMD.realEstateProjectList.1">
         <source>Creates a real estate list with projects, which can react to a filter.</source>
-        <target>Erzeugt eine Immobilienliste mit Projekten, welche auf einen Filter reagieren kann.</target>
       </trans-unit>
       <trans-unit id="FMD.projectDetails.0">
         <source>Project details</source>
-        <target>Projekt Details</target>
       </trans-unit>
       <trans-unit id="FMD.projectDetails.1">
         <source>Displays the project-specific details (price, area, room).</source>
-        <target>Gibt die Projektspezifischen Details aus (Preis, Fläche, Zimmer).</target>
       </trans-unit>
       <trans-unit id="FMD.projectChildrenList.0">
         <source>Project residential units list</source>
-        <target>Projekt Wohneinheiten-Liste</target>
       </trans-unit>
       <trans-unit id="FMD.projectChildrenList.1">
         <source>Outputs the residential units of a project.</source>
-        <target>Gibt die Wohneinheiten eines Projektes aus.</target>
       </trans-unit>
       <trans-unit id="FMD.projectMarketingStatus.0">
         <source>Project marketing progress</source>
-        <target>Projekt Vermarktungsfortschritt</target>
       </trans-unit>
       <trans-unit id="FMD.projectMarketingStatus.1">
         <source>Displays the progress of the marketing in %.</source>
-        <target>Gibt den Fortschritt der Vermakrtung in % aus</target>
       </trans-unit>
       <trans-unit id="FMD.projectCompletionStatus.0">
         <source>Status / Construction phase</source>
-        <target>Projektstatus / Bauphase</target>
       </trans-unit>
       <trans-unit id="FMD.projectCompletionStatus.1">
         <source>Displays the construction phase of project.</source>
-        <target>Gibt den Projektstatus / die Bauphasen aus</target>
       </trans-unit>
     </body>
   </file>

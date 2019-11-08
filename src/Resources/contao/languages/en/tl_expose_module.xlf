@@ -1,70 +1,54 @@
 <?xml version="1.0" ?>
 <xliff version="1.1">
-  <file datatype="php" original="src/Resources/contao/languages/en/tl_expose_module.php" source-language="en" target-language="de">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_expose_module.php" source-language="en">
     <body>
       <trans-unit id="tl_expose_module.projectDetails.0">
         <source>Details</source>
-        <target>Details</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectDetails.1">
         <source>Here you can specify which details will be output.</source>
-        <target>Hier können Sie festlegen, welche Details ausgegeben werden sollen.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectDetailsTemplate.0">
         <source>Project details template</source>
-        <target>Projekt-Details Template</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectDetailsTemplate.1">
         <source>Here you can overwrite the default template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectChildrenListTemplate.0">
         <source>Project residential unit list template</source>
-        <target>Projekt Wohneinheiten-Liste Template</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectChildrenListTemplate.1">
         <source>Here you can overwrite the default template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectMarketingStatusTemplate.0">
         <source>Project marketing progress template</source>
-        <target>Projekt Vermarktungsfortschritt Template</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectMarketingStatusTemplate.1">
         <source>Here you can overwrite the default template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectCompletionStatusTemplate.0">
         <source>Project status / Construction phase template</source>
-        <target>Projekt Status / Bauphase Template</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.projectCompletionStatusTemplate.1">
         <source>Here you can overwrite the default template.</source>
-        <target>Hier können Sie das Standard-Template überschreiben.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.childrenObserveFiltering.0">
         <source>Apply filtering to residential units</source>
-        <target>Filterung auf Wohneinheiten anwenden</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.childrenObserveFiltering.1">
         <source>Indicates if the residential units of a project should react to the filtering. Otherwise all residential units are output regardless of the filter settings.</source>
-        <target>Gibt an, ob die Wohneinheiten eines Projekts auf die Filterung reagieren sollen. Andernfalls werden alle Wohneinheiten unabhängig von den Filtereinstellungen ausgegeben.</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.hideOnZeroPercent.0">
         <source>Hide at 0%</source>
-        <target>Bei 0% ausblenden</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.hideOnZeroPercent.1">
         <source>Hides the module at a return value of 0%.</source>
-        <target>Blendet das Modul bei einer Rückgabe von 0% aus</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.completionStatus.0">
         <source>Project status / Construction phase</source>
-        <target>Projekt Status / Bauphase</target>
       </trans-unit>
       <trans-unit id="tl_expose_module.completionStatus.1">
         <source>Here you can specify the available phases in which the project can be located.</source>
-        <target>Hier können Sie die verfügbaren Phasen angeben, in denen sich das Projekt befinden kann.</target>
       </trans-unit>
     </body>
   </file>
