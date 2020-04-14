@@ -18,11 +18,18 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         'realEstateProjectList'  => '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
     ));
 
-    // Extend the googlemaps palettes
-    Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-        ->addField(array('showProjects'), 'config_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-        ->applyToPalette('realEstateGoogleMap', 'tl_module')
-    ;
+    // Extend google maps extension if exists
+    $bundles = Contao\System::getContainer()->getParameter('kernel.bundles');
+
+    // HOOK: comments extension required
+    if (isset($bundles['EstateManagerGoogleMaps']))
+    {
+        // Extend the googlemaps palettes
+        Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+            ->addField(array('showProjects'), 'config_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+            ->applyToPalette('realEstateGoogleMap', 'tl_module')
+        ;
+    }
 
     // Add field
     array_insert($GLOBALS['TL_DCA']['tl_module']['fields'], -1, array(
