@@ -10,8 +10,11 @@
 
 namespace ContaoEstateManager\Project;
 
+use Contao\BackendTemplate;
+use Contao\StringUtil;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\Translator;
+use Patchwork\Utf8;
 
 /**
  * Expose module "project details".
@@ -35,7 +38,7 @@ class ExposeModuleProjectDetails extends ExposeModule
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_details'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -53,7 +56,7 @@ class ExposeModuleProjectDetails extends ExposeModule
      */
     protected function compile()
     {
-        $arrDetails = \StringUtil::deserialize($this->projectDetails);
+        $arrDetails = StringUtil::deserialize($this->projectDetails);
         $arrReturn  = array();
 
         if($arrDetails)

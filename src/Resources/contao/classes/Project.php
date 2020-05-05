@@ -10,6 +10,7 @@
 
 namespace ContaoEstateManager\Project;
 
+use Contao\StringUtil;
 use ContaoEstateManager\Translator;
 use ContaoEstateManager\RealEstateModel;
 
@@ -278,7 +279,7 @@ class Project
      */
     public function addStatusToken(&$objTemplate, $realEstate, $context)
     {
-        $tokens = \StringUtil::deserialize($context->statusTokens);
+        $tokens = StringUtil::deserialize($context->statusTokens);
 
         if(!$tokens)
         {

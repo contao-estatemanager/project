@@ -10,8 +10,10 @@
 
 namespace ContaoEstateManager\Project;
 
+use Contao\BackendTemplate;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\Translator;
+use Patchwork\Utf8;
 
 /**
  * Expose module "project maketing status".
@@ -35,7 +37,7 @@ class ExposeModuleProjectMarketingStatus extends ExposeModule
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_marketing_status'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;

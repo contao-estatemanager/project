@@ -10,8 +10,11 @@
 
 namespace ContaoEstateManager\Project;
 
+use Contao\BackendTemplate;
+use Contao\StringUtil;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\Translator;
+use Patchwork\Utf8;
 
 /**
  * Expose module "project completion status".
@@ -35,7 +38,7 @@ class ExposeModuleProjectCompletionStatus extends ExposeModule
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_completion_status'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -63,7 +66,7 @@ class ExposeModuleProjectCompletionStatus extends ExposeModule
             return false;
         }
 
-        $arrStatus = \StringUtil::deserialize($this->completionStatus, true);
+        $arrStatus = StringUtil::deserialize($this->completionStatus, true);
         $arrReturn = array();
 
         foreach ($arrStatus as $status) {
