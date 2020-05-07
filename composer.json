@@ -2,7 +2,7 @@
   "name":"contao-estatemanager/project",
   "type":"contao-bundle",
   "description":"Projects Extension for Contao EstateManager",
-  "keywords":["contao","estatemanager","real estate","estate","property", "project"],
+  "keywords":["contao", "immobilien", "manager", "property", "realestate", "project"],
   "homepage":"https://www.contao-estatemanager.com/",
   "license":"proprietary",
   "authors":[

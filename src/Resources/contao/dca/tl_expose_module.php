@@ -9,14 +9,11 @@
  */
 
 if(ContaoEstateManager\Project\AddonManager::valid()) {
-    // Add field
-    array_insert($GLOBALS['TL_DCA']['tl_expose_module']['palettes'], -1, array
-    (
-        'projectDetails'          => '{title_legend},name,headline,type;{settings_legend},projectDetails;{template_legend:hide},customTpl,projectDetailsTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-        'projectChildrenList'     => '{title_legend},name,headline,type;{settings_legend},childrenObserveFiltering,jumpTo;{image_legend:hide},imgSize;{template_legend:hide},customTpl,projectChildrenListTemplate,realEstateTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-        'projectMarketingStatus'  => '{title_legend},name,headline,type;{settings_legend},hideOnZeroPercent;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-        'projectCompletionStatus' => '{title_legend},name,headline,type;{settings_legend},completionStatus;{template_legend:hide},customTpl,projectCompletionStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID'
-    ));
+    // Add palettes
+    $GLOBALS['TL_DCA']['tl_expose_module']['palettes']['projectDetails'] = '{title_legend},name,headline,type;{settings_legend},projectDetails;{template_legend:hide},customTpl,projectDetailsTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+    $GLOBALS['TL_DCA']['tl_expose_module']['palettes']['projectChildrenList'] = '{title_legend},name,headline,type;{settings_legend},childrenObserveFiltering,jumpTo;{image_legend:hide},imgSize;{template_legend:hide},customTpl,projectChildrenListTemplate,realEstateTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+    $GLOBALS['TL_DCA']['tl_expose_module']['palettes']['projectMarketingStatus'] = '{title_legend},name,headline,type;{settings_legend},hideOnZeroPercent;{template_legend:hide},customTpl,projectMarketingStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+    $GLOBALS['TL_DCA']['tl_expose_module']['palettes']['projectCompletionStatus'] = '{title_legend},name,headline,type;{settings_legend},completionStatus;{template_legend:hide},customTpl,projectCompletionStatusTemplate;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
     // Add fields
     array_insert($GLOBALS['TL_DCA']['tl_expose_module']['fields'], -1, array(
@@ -26,7 +23,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'default'                 => 'expose_mod_project_details',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_expose_module_project', 'getProjectDetailsTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('expose_mod_project_details_');
+            },
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
@@ -36,7 +35,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'default'                 => 'expose_mod_project_marketing_status',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_expose_module_project', 'getProjectMarketingStatusTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('expose_mod_project_marketing_status_');
+            },
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
@@ -46,7 +47,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'default'                 => 'expose_mod_project_children_list',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_expose_module_project', 'getProjectChildrenListTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('expose_mod_project_children_list_');
+            },
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
@@ -56,7 +59,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'default'                 => 'expose_mod_project_children_list',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_expose_module_project', 'getProjectCompletionStatusTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('expose_mod_project_completion_status_');
+            },
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
@@ -99,64 +104,5 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     ));
 
     // Extend estate manager statusTokens field options
-    array_insert($GLOBALS['TL_DCA']['tl_expose_module']['fields']['statusTokens']['options'], -1, array('project'));
-}
-
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <daniele@oveleon.de>
- */
-class tl_expose_module_project extends \Backend
-{
-
-    /**
-     * Import the back end user object
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->import('BackendUser', 'User');
-    }
-
-    /**
-     * Return all project details templates as array
-     *
-     * @return array
-     */
-    public function getProjectDetailsTemplates()
-    {
-        return $this->getTemplateGroup('expose_mod_project_details_');
-    }
-
-    /**
-     * Return all marketing status templates as array
-     *
-     * @return array
-     */
-    public function getProjectMarketingStatusTemplates()
-    {
-        return $this->getTemplateGroup('expose_mod_project_marketing_status_');
-    }
-
-    /**
-     * Return all children list templates as array
-     *
-     * @return array
-     */
-    public function getProjectChildrenListTemplates()
-    {
-        return $this->getTemplateGroup('expose_mod_project_children_list_');
-    }
-
-    /**
-     * Return all children list templates as array
-     *
-     * @return array
-     */
-    public function getProjectCompletionStatusTemplates()
-    {
-        return $this->getTemplateGroup('expose_mod_project_completion_status_');
-    }
+    $GLOBALS['TL_DCA']['tl_expose_module']['fields']['statusTokens']['options'][] = 'project';
 }

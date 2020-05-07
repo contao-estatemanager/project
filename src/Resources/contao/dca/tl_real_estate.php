@@ -13,11 +13,10 @@
 
 if(ContaoEstateManager\Project\AddonManager::valid()) {
 
-    // Add onsubmit callback
-    array_insert($GLOBALS['TL_DCA']['tl_real_estate']['config']['onsubmit_callback'], 0, array(
-        array('tl_real_estate_project', 'setMasterObjectInformation')
-    ));
+    // Add config callback
+    $GLOBALS['TL_DCA']['tl_real_estate']['config']['onsubmit_callback'][] = array('tl_real_estate_project', 'setMasterObjectInformation');
 
+    // Add list callback
     $GLOBALS['TL_DCA']['tl_real_estate']['list']['label']['post_label_callbacks'][] = array('tl_real_estate_project', 'addProjectInformation');
 
     // Add field
@@ -72,7 +71,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'eval'                      => array('maxlength'=>32, 'tl_class'=>'w50'),
             'sql'                       => "varchar(32) NOT NULL default ''",
             'realEstate'                => array(
-                'group'    => 'neubau'
+                'group'    => 'project'
             )
         ),
         'master'  => array
@@ -82,7 +81,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'eval'                      => array('maxlength'=>32, 'tl_class'=>'w50'),
             'sql'                       => "varchar(32) NOT NULL default ''",
             'realEstate'                => array(
-                'group'    => 'neubau',
+                'group'    => 'project',
                 'filter'   => true,
             )
         ),
@@ -95,7 +94,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'reference'                 => &$GLOBALS['TL_LANG']['tl_real_estate_project_misc'],
             'sql'                       => "varchar(32) NOT NULL default ''",
             'realEstate'                => array(
-                'group'    => 'neubau'
+                'group'    => 'project'
             )
         )
     ));
@@ -141,7 +140,7 @@ class tl_real_estate_project extends Backend
     {
         if ($dc->activeRecord->master = '' && $dc->activeRecord->gruppenKennung != '')
         {
-            // ToDo: Ermitteln der primären Felder mit anschließender prüfung ob diese in das Master-Objekt geschrieben werden muss (nur published bei unblished alle kinder durchlaufen und neuen wert setzen)
+            // ToDo: Ermitteln der primären Felder mit anschließender Prüfung ob diese in das Master-Objekt geschrieben werden muss (nur published bei unblished alle "Kinder" durchlaufen und neuen Wert setzen)
         }
     }
 
@@ -165,11 +164,11 @@ class tl_real_estate_project extends Backend
         // add project information
         if ($row['gruppenKennung'] && $row['master'])
         {
-            $args[0] .= '<span class="token" style="background-color:#1578ea; color:#fff;" title="Neubauprojekt">N</span>';
+            $args[0] .= '<span class="token" style="background-color:#1578ea; color:#fff;" title="Project">P</span>';
         }
         else
         {
-            $args[0] .= '<span class="token" style="background-color:#4c98ef; color:#fff;" title="Wohneinheit">W</span>';
+            $args[0] .= '<span class="token" style="background-color:#4c98ef; color:#fff;" title="Residential unit">U</span>';
         }
 
         return $args;

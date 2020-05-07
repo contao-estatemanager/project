@@ -24,15 +24,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     ));
 
     // Front end modules
-    array_insert($GLOBALS['FE_MOD'], -1, array
-    (
-        'estatemanager' => array
-        (
-            'realEstateProjectList' => '\\ContaoEstateManager\\Project\\ModuleRealEstateProjectList',
-        )
-    ));
+    $GLOBALS['FE_MOD']['estatemanager']['realEstateProjectList'] = '\\ContaoEstateManager\\Project\\ModuleRealEstateProjectList';
 
-    // HOOKS
+    // Hooks
     $GLOBALS['TL_HOOKS']['getTypeParameter'][]          = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
     $GLOBALS['TL_HOOKS']['getParameterByGroups'][]      = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');
     $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][]  = array('ContaoEstateManager\\Project\\Project', 'setFilterParameter');

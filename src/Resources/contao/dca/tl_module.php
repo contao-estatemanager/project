@@ -10,13 +10,10 @@
 
 if(ContaoEstateManager\Project\AddonManager::valid()) {
     // Extend estate manager statusTokens field options
-    array_insert($GLOBALS['TL_DCA']['tl_module']['fields']['statusTokens']['options'], -1, array('project'));
+    $GLOBALS['TL_DCA']['tl_module']['fields']['statusTokens']['options'][] = 'project';
 
     // Add module palette for projects
-    array_insert($GLOBALS['TL_DCA']['tl_module']['palettes'], 0, array
-    (
-        'realEstateProjectList'  => '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID',
-    ));
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['realEstateProjectList'] = '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
     // Extend google maps extension if exists
     $bundles = Contao\System::getContainer()->getParameter('kernel.bundles');
@@ -57,7 +54,9 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'default'                 => 'real_estate_item_default',
             'exclude'                 => true,
             'inputType'               => 'select',
-            'options_callback'        => array('tl_module_estate_manager_project', 'getRealEstateProjectTemplates'),
+            'options_callback'        => function (){
+                return Contao\Controller::getTemplateGroup('real_estate_project_');
+            },
             'eval'                    => array('tl_class'=>'w50'),
             'sql'                     => "varchar(64) NOT NULL default ''"
         ),
@@ -83,32 +82,4 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
             'sql'                     => "varchar(64) NOT NULL default ''"
         )
     ));
-}
-
-/**
- * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <daniele@oveleon.de>
- */
-class tl_module_estate_manager_project extends Backend
-{
-
-    /**
-     * Import the back end user object
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->import('BackendUser', 'User');
-    }
-
-    /**
-     * Return all real estate list templates as array
-     *
-     * @return array
-     */
-    public function getRealEstateProjectTemplates()
-    {
-        return $this->getTemplateGroup('real_estate_project_');
-    }
 }

@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="FMD.realEstateProjectList.0">
         <source>Real estate project list</source>
-        <target>Immobilien-Projekte</target>
+        <target>Immobilien-Projektliste</target>
       </trans-unit>
       <trans-unit id="FMD.realEstateProjectList.1">
         <source>Creates a real estate list with projects, which can react to a filter.</source>

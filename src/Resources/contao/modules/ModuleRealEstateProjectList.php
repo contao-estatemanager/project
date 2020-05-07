@@ -167,7 +167,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'] ?: array();
 
                 // set information to template
-                $objTemplate->title        = $realEstate->getTitle();
+                $objTemplate->title        = $realEstate->title;
                 $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
                 $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
                 $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
@@ -234,7 +234,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
      *
      * @return array
      */
-    protected function addPagination($total)
+    protected function addPagination($total): array
     {
         $limit = null;
         $offset = 0;
@@ -287,12 +287,13 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
         return array($limit, $offset);
     }
+
     /**
      * Return project filter parameters
      *
      * @return array
      */
-    protected function getProjectParameters()
+    protected function getProjectParameters(): array
     {
         $t = $this->strTable;
 

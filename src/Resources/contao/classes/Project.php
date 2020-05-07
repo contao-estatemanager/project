@@ -37,7 +37,7 @@ class Project
      * @param $addFragments
      * @param $context
      */
-    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $context)
+    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $context): void
     {
         $t = static::$strTable;
 
@@ -55,7 +55,7 @@ class Project
      * @param $mapConfig
      * @param $context
      */
-    public function compileGoogleMapConfig(&$template, &$mapConfig, $context)
+    public function compileGoogleMapConfig(&$template, &$mapConfig, $context): void
     {
         if($context->showProjects)
         {
@@ -73,7 +73,7 @@ class Project
      * @param $currParam
      * @param $context
      */
-    public function setEstatesControllerParameter(&$arrColumns, &$arrValues, &$arrOptions, $currParam, $context)
+    public function setEstatesControllerParameter(&$arrColumns, &$arrValues, &$arrOptions, $currParam, $context): void
     {
         $t = static::$strTable;
 
@@ -96,9 +96,9 @@ class Project
      *
      * @param  $objMaster
      *
-     * @return integer: marketing status in percent
+     * @return int: marketing status in percent
      */
-    public static function getProjectMarketingStatus($objMaster)
+    public static function getProjectMarketingStatus($objMaster): int
     {
         $t = static::$strTable;
 
@@ -143,7 +143,7 @@ class Project
      *
      * @return array
      */
-    public static function getProjectSpecificDetails($realEstate)
+    public static function getProjectSpecificDetails($realEstate): array
     {
         $details = array();
 
@@ -242,14 +242,14 @@ class Project
      *
      * @param $realEstate
      *
-     * @return mixed
+     * @return int
      */
-    public static function getNumberOfChildren($realEstate)
+    public static function getNumberOfChildren($realEstate): int
     {
-        // If we have received a master property and the number of units has been transferred, we can return it
+        // If we have received a master property and the number of units has been transferred, return it directly
         if(!!$realEstate->master && $realEstate->anzahlWohneinheiten)
         {
-            return $realEstate->formatter->formatValue('anzahlWohneinheiten');
+            return intval($realEstate->formatter->formatValue('anzahlWohneinheiten'));
         }
 
         $masterId = $realEstate->master ?: $realEstate->gruppenKennung;
@@ -277,7 +277,7 @@ class Project
      * @param $realEstate
      * @param $context
      */
-    public function addStatusToken(&$objTemplate, $realEstate, $context)
+    public function addStatusToken(&$objTemplate, $realEstate, $context): void
     {
         $tokens = StringUtil::deserialize($context->statusTokens);
 
