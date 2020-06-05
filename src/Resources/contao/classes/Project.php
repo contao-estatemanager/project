@@ -271,30 +271,20 @@ class Project
     }
 
     /**
-     * Add status token for project objects
+     * Add status token for projects
      *
-     * @param $objTemplate
-     * @param $realEstate
+     * @param $validStatusToken
+     * @param $arrStatusTokens
      * @param $context
      */
-    public function addStatusToken(&$objTemplate, $realEstate, $context): void
+    public function addStatusToken($validStatusToken, &$arrStatusTokens, $context): void
     {
-        $tokens = StringUtil::deserialize($context->statusTokens);
-
-        if(!$tokens)
+        if (in_array('project', $validStatusToken) && $context->objRealEstate->gruppenKennung)
         {
-            return;
-        }
-
-        // add reference status token
-        if (in_array('project', $tokens) && $realEstate->objRealEstate->gruppenKennung)
-        {
-            $objTemplate->arrStatusTokens = array_merge($objTemplate->arrStatusTokens, array(
-                array(
-                    'value' => Translator::translateValue('project'),
-                    'class' => 'project'
-                )
-            ));
+            $arrStatusTokens[] = array(
+                'value' => Translator::translateValue('project'),
+                'class' => 'project'
+            );
         }
     }
 }
