@@ -10,13 +10,18 @@
 
 namespace ContaoEstateManager\Project;
 
+use Contao\BackendTemplate;
+use Contao\Config;
+use Contao\CoreBundle\Exception\PageNotFoundException;
+use Contao\Environment;
+use Contao\FrontendTemplate;
+use Contao\Pagination;
 use Patchwork\Utf8;
 use ContaoEstateManager\RealEstate;
 use ContaoEstateManager\Translator;
 use ContaoEstateManager\FilterSession;
 use ContaoEstateManager\RealEstateModel;
 use ContaoEstateManager\ModuleRealEstate;
-use ContaoEstateManager\RealEstateTypeModel;
 
 /**
  * Front end module "real estate project list".
@@ -58,7 +63,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
     {
         if (TL_MODE == 'BE')
         {
-            $objTemplate = new \BackendTemplate('be_wildcard');
+            $objTemplate = new BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['realEstateProjectList'][0]) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -156,13 +161,13 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             while($objProjects->next())
             {
                 $realEstate  = new RealEstate($objProjects->current(), null);
-                $objTemplate = new \FrontendTemplate($this->strProjectTemplate);
+                $objTemplate = new FrontendTemplate($this->strProjectTemplate);
 
                 $objTemplate->realEstateId = $objProjects->id;
                 $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'] ?: array();
 
                 // set information to template
-                $objTemplate->title        = $realEstate->getTitle();
+                $objTemplate->title        = $realEstate->title;
                 $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
                 $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
                 $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
@@ -229,7 +234,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
      *
      * @return array
      */
-    protected function addPagination($total)
+    protected function addPagination($total): array
     {
         $limit = null;
         $offset = 0;
@@ -261,7 +266,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             // Do not index or cache the page if the page number is outside the range
             if ($page < 1 || $page > max(ceil($total/$this->perPage), 1))
             {
-                throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+                throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
             }
 
             // Set limit and offset
@@ -276,18 +281,19 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             }
 
             // Add the pagination menu
-            $objPagination = new \Pagination($total, $this->perPage, \Config::get('maxPaginationLinks'), $id);
+            $objPagination = new Pagination($total, $this->perPage, Config::get('maxPaginationLinks'), $id);
             $this->Template->pagination = $objPagination->generate("\n  ");
         }
 
         return array($limit, $offset);
     }
+
     /**
      * Return project filter parameters
      *
      * @return array
      */
-    protected function getProjectParameters()
+    protected function getProjectParameters(): array
     {
         $t = $this->strTable;
 

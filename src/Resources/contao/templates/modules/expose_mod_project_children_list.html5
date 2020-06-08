@@ -2,10 +2,12 @@
 
 <?php $this->block('content'); ?>
 
-<div class="list">
-    <?php foreach($this->realEstates as $realEstate):?>
-        <?=$realEstate?>
-    <?php endforeach; ?>
-</div>
+<?php if($this->realEstates): ?>
+    <div class="list">
+        <?php foreach($this->realEstates as $realEstate):?>
+            <?=$realEstate?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 
 <?php $this->endblock(); ?>
