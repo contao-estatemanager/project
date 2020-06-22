@@ -1,61 +1,80 @@
 <div class="real_estate_project_default block<?= $this->class ?>">
     <div class="inner">
-      <div class="main-image">
-        <a href="<?= $this->link ?>" title="<?= $this->title ?>">
-          <?php $this->insert('image', $this->arrData); ?>
-        </a>
-      </div>
-      <div class="info">
-          <div class="title"><?= $this->linkHeadline ?></div>
-          <div class="address"><?= $this->address ?></div>
+        <?php $link = $this->realEstate->generateExposeUrl($this->jumpTo) ?>
+        <div class="main-image">
+            <?php if ($this->jumpTo): ?>
+            <a href="<?= $link ?>" title="<?= $this->realEstate->title ?>">
+                <?php endif; ?>
+                <figure class="image_container"><?= $this->realEstate->generateMainImage() ?></figure>
+                <?php if ($this->jumpTo): ?>
+            </a>
+        <?php endif; ?>
+        </div>
+          <div class="info">
 
-          <div class="details">
-              <?php foreach($this->details as $key => $field): ?>
-                  <div class="detail <?= $key ?>">
-                      <span class="label"><?= $field['label'] ?></span>
-                      <span class="value">
-                          <?php foreach($field['details'] as $detail): ?>
-                              <span class="<?= $detail['key'] ?><?= $detail['class'] ? ' ' . $detail['class'] : ''?>">
-                                  <span class="label"><?= $detail['label'] ?></span>
-                                  <span class="value"><?= $detail['value'] ?></span>
-                              </span>
-                          <?php endforeach; ?>
-                      </span>
-                  </div>
-              <?php endforeach; if($this->numberOfChildren): ?>
-                  <div class="detail number-children">
-                      <span class="label"><?= $this->labelNumberOfChildren ?></span>
-                      <span class="value"><?= $this->numberOfChildren?></span>
-                  </div>
-              <?php endif; if($this->available['value']): ?>
-                  <div class="detail <?=$this->available['key']?><?= $this->available['class'] ? ' ' . $this->available['class'] : ''?>">
-                      <span class="label"><?= $this->available['label'] ?></span>
-                      <span class="value"><?= $this->available['value'] ?></span>
-                  </div>
+              <?php if ($this->jumpTo): ?>
+                <a href="<?= $link ?>" title="<?= $this->realEstate->title ?>">
+              <?php endif; ?>
+                  <h4 class="title">
+                      <?= $this->realEstate->title ?>
+                  </h4>
+              <?php if ($this->jumpTo): ?>
+                </a>
+              <?php endif; ?>
+
+              <div class="address"><?= $this->realEstate->getLocationString() ?></div>
+
+              <div class="details">
+                  <?php foreach($this->details as $key => $field): ?>
+                      <div class="detail <?= $key ?>">
+                          <span class="label"><?= $field['label'] ?></span>
+                          <span class="value">
+                              <?php foreach($field['details'] as $detail): ?>
+                                  <span class="<?= $detail['key'] ?><?= $detail['class'] ? ' ' . $detail['class'] : ''?>">
+                                      <span class="label"><?= $detail['label'] ?></span>
+                                      <span class="value"><?= $detail['value'] ?></span>
+                                  </span>
+                              <?php endforeach; ?>
+                          </span>
+                      </div>
+                  <?php endforeach; if($this->numberOfChildren): ?>
+                      <div class="detail number-children">
+                          <span class="label"><?= $this->labelNumberOfChildren ?></span>
+                          <span class="value"><?= $this->numberOfChildren?></span>
+                      </div>
+                  <?php endif; if($this->available['value']): ?>
+                      <div class="detail <?=$this->available['key']?><?= $this->available['class'] ? ' ' . $this->available['class'] : ''?>">
+                          <span class="label"><?= $this->available['label'] ?></span>
+                          <span class="value"><?= $this->available['value'] ?></span>
+                      </div>
+                  <?php endif; ?>
+              </div>
+
+              <div class="bottom">
+                  <?php if ($this->jumpTo): ?>
+                      <a href="<?= $link ?>" title="<?= $this->realEstate->title ?>" class="project-link">
+                          <?= $this->buttonLabel ?>
+                      </a>
+                  <?php endif; ?>
+              </div>
+
+              <?php if ($this->addProvider): ?>
+                  <?= $this->provider ?>
+              <?php endif; ?>
+
+              <?php if ($this->addContactPerson): ?>
+                  <?= $this->contactPerson ?>
               <?php endif; ?>
           </div>
-
-          <div class="bottom">
-            <div class="project-link"><?= $this->linkProject ?></div>
-          </div>
-
-          <?php if ($this->addProvider): ?>
-              <?= $this->provider ?>
-          <?php endif; ?>
-
-          <?php if ($this->addContactPerson): ?>
-              <?= $this->contactPerson ?>
-          <?php endif; ?>
-      </div>
-      <?php if(count($this->children)): ?>
-          <div class="children">
-              <h3><?= $this->labelChildren ?></h3>
-              <div class="children-list">
-                  <?php foreach ($this->children as $children): ?>
-                      <?= $children ?>
-                  <?php endforeach; ?>
+          <?php if(count($this->children)): ?>
+              <div class="children">
+                  <h3><?= $this->labelChildren ?></h3>
+                  <div class="children-list">
+                      <?php foreach ($this->children as $children): ?>
+                          <?= $children ?>
+                      <?php endforeach; ?>
+                  </div>
               </div>
-          </div>
-      <?php endif; ?>
+          <?php endif; ?>
     </div>
 </div>

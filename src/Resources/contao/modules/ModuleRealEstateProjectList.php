@@ -16,8 +16,8 @@ use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\Pagination;
+use ContaoEstateManager\RealEstateModulePreparation;
 use Patchwork\Utf8;
-use ContaoEstateManager\RealEstate;
 use ContaoEstateManager\Translator;
 use ContaoEstateManager\FilterSession;
 use ContaoEstateManager\RealEstateModel;
@@ -150,31 +150,25 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             // assign parsed children to projects
             if($objChildren !== null)
             {
-                    while($objChildren->next())
-                    {
-                        $arrProjects[ $objChildren->gruppenKennung ]['children'][] = $this->parseRealEstate($objChildren->current());
-                    }
+                while($objChildren->next())
+                {
+                    $arrProjects[ $objChildren->gruppenKennung ]['children'][] = $this->parseRealEstate($objChildren->current());
+                }
             }
 
             $objProjects->reset();
 
             while($objProjects->next())
             {
-                $realEstate  = new RealEstate($objProjects->current(), null);
+                $realEstate  = new RealEstateModulePreparation($objProjects->current(), $this,null);
                 $objTemplate = new FrontendTemplate($this->strProjectTemplate);
 
-                $objTemplate->realEstateId = $objProjects->id;
+                $objTemplate->realEstate   = $realEstate;
                 $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'] ?: array();
-
-                // set information to template
-                $objTemplate->title        = $realEstate->title;
-                $objTemplate->link         = $realEstate->generateExposeUrl($this->jumpToProject);
-                $objTemplate->linkProject  = $this->generateLink(Translator::translateExpose('button_project'), $objTemplate->link, true);
-                $objTemplate->linkHeadline = $this->generateLink($objTemplate->title, $objTemplate->link);
-                $objTemplate->address      = $realEstate->getLocationString();
+                $objTemplate->jumpTo       = $this->jumpToProject;
                 $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
-                $objTemplate->available    = $realEstate->formatter->getFormattedCollection('verfuegbarAb');
 
+                $objTemplate->buttonLabel           = Translator::translateExpose('button_project');
                 $objTemplate->labelChildren         = Translator::translateLabel('project_children_label');
                 $objTemplate->labelNumberOfChildren = Translator::translateLabel('anzahl_wohneinheiten');
 
@@ -206,9 +200,6 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 {
                     $objTemplate->contactPerson = $this->parseContactPerson($realEstate);
                 }
-
-                // set real estate image
-                $objTemplate->addImage = $this->addMainImageToTemplate($objTemplate, $realEstate, $this->projectImgSize);
 
                 if (isset($GLOBALS['TL_HOOKS']['parseRealEstateProject']) && \is_array($GLOBALS['TL_HOOKS']['parseRealEstateProject']))
                 {
