@@ -86,7 +86,7 @@ class ExposeModuleProjectChildrenList extends ExposeModule
         $arrColumns[] = "$this->strTable.master=''";
         $arrValues[]  = $this->realEstate->master;
 
-        $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, $arrOptions);
+        $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
 
         if($objChildren !== null)
         {

@@ -102,14 +102,14 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
         list($arrColumns, $arrValues, $arrOptions) = $this->getProjectParameters();
 
-        $cntProjects = RealEstateModel::countBy($arrColumns, $arrValues, $arrOptions);
+        $cntProjects = RealEstateModel::countPublishedBy($arrColumns, $arrValues, $arrOptions);
 
         list($limit, $offset) = $this->addPagination($cntProjects);
 
         $arrOptions['limit'] = $limit;
         $arrOptions['offset'] = $offset;
 
-        $objProjects = RealEstateModel::findBy($arrColumns, $arrValues, $arrOptions);
+        $objProjects = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
         $projectIds = array();
         $arrProjects = array();
         $arrRealEstates = array();
@@ -133,7 +133,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             $arrColumns[] = "$this->strTable.gruppenKennung IN(" . implode(",", $projectIds) . ")";
             $arrColumns[] = "$this->strTable.master=''";
 
-            $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, $arrOptions);
+            $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
 
             // get real number of all children if needed (without filter parameters)
             if(!!$this->childrenObserveFiltering)
