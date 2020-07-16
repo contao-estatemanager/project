@@ -115,7 +115,7 @@ class Project
 
         $arrValues = array($objMaster->master);
 
-        $objChildren = RealEstateModel::findBy($arrColumns, $arrValues, array());
+        $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, array());
 
         if($objChildren === null)
         {
@@ -266,7 +266,7 @@ class Project
 
             $arrValues = array($masterId);
 
-            return RealEstateModel::countBy($arrColumns, $arrValues, array());
+            return RealEstateModel::countPublishedBy($arrColumns, $arrValues, array());
         }
     }
 
