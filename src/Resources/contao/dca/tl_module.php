@@ -15,12 +15,6 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     // Add module palette for projects
     $GLOBALS['TL_DCA']['tl_module']['palettes']['realEstateProjectList']  = '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
-    // Extend the googlemaps palettes
-    Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-        ->addField(array('showProjects'), 'config_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-        ->applyToPalette('realEstateGoogleMap', 'tl_module')
-    ;
-
     // Add field
     $GLOBALS['TL_DCA']['tl_module']['fields']['showProjects'] = array
     (
@@ -77,4 +71,14 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         },
         'sql'                     => "varchar(64) NOT NULL default ''"
     );
+
+    // Extend the googlemaps palettes
+    $bundles = Contao\System::getContainer()->getParameter('kernel.bundles');
+
+    if (isset($bundles['EstateManagerGoogleMaps']))
+    {
+        Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+            ->addField(array('showProjects'), 'config_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+            ->applyToPalette('realEstateGoogleMap', 'tl_module');
+    }
 }
