@@ -18,6 +18,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use ContaoEstateManager\EstateManager\EstateManager;
 use ContaoEstateManager\Project\EstateManagerProject;
+use ContaoEstateManager\GoogleMaps\EstateManagerGoogleMaps;
 
 class Plugin implements BundlePluginInterface
 {
@@ -28,7 +29,7 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(EstateManagerProject::class)
-                ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class])
+                ->setLoadAfter([ContaoCoreBundle::class, EstateManager::class, EstateManagerGoogleMaps::class])
                 ->setReplace(['estatemanager-project']),
         ];
     }
