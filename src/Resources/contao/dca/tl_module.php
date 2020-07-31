@@ -13,7 +13,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     $GLOBALS['TL_DCA']['tl_module']['fields']['statusTokens']['options'][] = 'project';
 
     // Add module palette for projects
-    $GLOBALS['TL_DCA']['tl_module']['palettes']['realEstateProjectList']  = '{title_legend},name,headline,type;{config_legend},numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+    $GLOBALS['TL_DCA']['tl_module']['palettes']['realEstateProjectList']  = '{title_legend},name,headline,type;{config_legend},realEstateGroups,numberOfItems,perPage,filterMode,childrenObserveFiltering,addSorting;{redirect_legend},jumpTo,jumpToProject;{item_extension_legend:hide},addProvider,addContactPerson;{template_legend:hide},statusTokens,customTpl,realEstateProjectTemplate,realEstateTemplate,realEstateProviderTemplate,realEstateContactPersonTemplate;{image_legend:hide},imgSize,projectImgSize,providerImgSize,contactPersonImgSize;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
     // Add field
     $GLOBALS['TL_DCA']['tl_module']['fields']['showProjects'] = array

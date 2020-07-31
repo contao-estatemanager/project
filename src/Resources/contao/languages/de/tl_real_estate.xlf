@@ -30,6 +30,54 @@
         <source>Specify the status/phase in which the project is currently in.</source>
         <target>Geben Sie hier den Status / die Phase an, in der sich das Projekt befindet</target>
       </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_from.0">
+        <source>Price from</source>
+        <target>Preis ab</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_from.1">
+        <source>Define here the price of the cheapest housing unit of this project to display a from-to price.</source>
+        <target>Definieren Sie hier den Preis der günstigsten Wohneinheit dieses Projektes um einen von-bis Preis anzeigen zu lassen.</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_to.0">
+        <source>Price to</source>
+        <target>Preis bis</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_to.1">
+        <source>Define the price of the most expensive housing unit of this project to display a from-to price.</source>
+        <target>Definieren Sie hier den Preis der teuersten Wohneinheit dieses Projektes um einen von-bis Preis anzeigen zu lassen.</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_from.0">
+        <source>Area from</source>
+        <target>Fläche ab</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_from.1">
+        <source>Define the area of the smallest housing unit of this project to display a from-to area.</source>
+        <target>Definieren Sie hier die Fläche der kleinsten Wohneinheit dieses Projektes um eine von-bis Fläche anzeigen zu lassen.</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_to.0">
+        <source>Area to</source>
+        <target>Fläche bis</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_to.1">
+        <source>Define the area of the largest housing unit of this project to display a from-to area.</source>
+        <target>Definieren Sie hier die Fläche der größten Wohneinheit dieses Projektes um eine von-bis Fläche anzeigen zu lassen.</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_from.0">
+        <source>Room from</source>
+        <target>Zimmer ab</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_from.1">
+        <source>Define here the smallest number of rooms of the housing units of this project to display from-to rooms.</source>
+        <target>Definieren Sie hier die kleinste Anzahl der Zimmer der Wohneinheiten dieses Projektes um von-bis Zimmer anzeigen zu lassen.</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_to.0">
+        <source>Room to</source>
+        <target>Zimmer bis</target>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_to.1">
+        <source>Define here the largest number of rooms of the housing units of this project to display from-to rooms.</source>
+        <target>Definieren Sie hier die größte Anzahl der Zimmer der Wohneinheiten dieses Projektes um von-bis Zimmer anzeigen zu lassen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
