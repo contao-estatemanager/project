@@ -26,7 +26,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
         'label'                     => &$GLOBALS['TL_LANG']['tl_real_estate']['project_price_from'],
         'exclude'                   => true,
         'inputType'                 => 'text',
-        'eval'                      => array('maxlength'=>20, 'tl_class'=>'w50'),
+        'eval'                      => array('maxlength'=>20, 'tl_class'=>'w50 clr'),
         'sql'                       => "decimal(10,2) NULL default NULL"
     );
 

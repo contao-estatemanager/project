@@ -23,6 +23,42 @@
       <trans-unit id="tl_real_estate.completionStatus.1">
         <source>Specify the status/phase in which the project is currently in.</source>
       </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_from.0">
+        <source>Price from</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_from.1">
+        <source>Define here the price of the cheapest housing unit of this project to display a from-to price.</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_to.0">
+        <source>Price to</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_price_to.1">
+        <source>Define the price of the most expensive housing unit of this project to display a from-to price.</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_from.0">
+        <source>Area from</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_from.1">
+        <source>Define the area of the smallest housing unit of this project to display a from-to area.</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_to.0">
+        <source>Area to</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_area_to.1">
+        <source>Define the area of the largest housing unit of this project to display a from-to area.</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_from.0">
+        <source>Room from</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_from.1">
+        <source>Define here the smallest number of rooms of the housing units of this project to display from-to rooms.</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_to.0">
+        <source>Room to</source>
+      </trans-unit>
+      <trans-unit id="tl_real_estate.project_room_to.1">
+        <source>Define here the largest number of rooms of the housing units of this project to display from-to rooms.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
