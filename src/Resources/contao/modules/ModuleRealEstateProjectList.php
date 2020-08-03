@@ -166,6 +166,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 $objTemplate->realEstate   = $realEstate;
                 $objTemplate->children     = $arrProjects[ $objProjects->master ]['children'] ?: array();
                 $objTemplate->jumpTo       = $this->jumpToProject;
+                $objTemplate->imgSize      = $this->projectImgSize;
                 $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
 
                 $objTemplate->buttonLabel           = Translator::translateExpose('button_project');
