@@ -216,6 +216,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             }
         }
 
+        $this->Template->empty = $GLOBALS['TL_LANG']['MSC']['noRealEstateResults'];
         $this->Template->realEstates = $arrRealEstates;
     }
 
