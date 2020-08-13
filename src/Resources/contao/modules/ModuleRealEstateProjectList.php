@@ -217,9 +217,9 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             }
         }
 
-        System::loadLanguageFile('default');
+        System::loadLanguageFile('tl_real_estate_misc');
 
-        $this->Template->empty = $GLOBALS['TL_LANG']['MSC']['noRealEstateResults'];
+        $this->Template->empty = $GLOBALS['TL_LANG']['tl_real_estate_misc']['noProjectResults'];
         $this->Template->realEstates = $arrRealEstates;
     }
 

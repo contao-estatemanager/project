@@ -43,6 +43,11 @@
         <source>Move-in ready</source>
         <target>Bezugsbereit</target>
       </trans-unit>
+
+      <trans-unit id="tl_real_estate_project_misc.noProjectResults">
+        <source>No projects are currently under construction.</source>
+        <target>Derzeit befinden sich keine Projekte im Bau.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
