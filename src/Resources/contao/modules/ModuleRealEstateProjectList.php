@@ -16,6 +16,7 @@ use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\Environment;
 use Contao\FrontendTemplate;
 use Contao\Pagination;
+use Contao\System;
 use ContaoEstateManager\RealEstateModulePreparation;
 use Patchwork\Utf8;
 use ContaoEstateManager\Translator;
@@ -215,6 +216,8 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
             }
         }
+
+        System::loadLanguageFile('tl_default');
 
         $this->Template->empty = $GLOBALS['TL_LANG']['MSC']['noRealEstateResults'];
         $this->Template->realEstates = $arrRealEstates;
