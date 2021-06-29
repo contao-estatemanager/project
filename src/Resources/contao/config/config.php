@@ -27,6 +27,7 @@ if(ContaoEstateManager\Project\AddonManager::valid()) {
     // Hooks
     $GLOBALS['TL_HOOKS']['getTypeParameter'][]          = array('ContaoEstateManager\Project\Project', 'setFilterParameter');
     $GLOBALS['TL_HOOKS']['getParameterByGroups'][]      = array('ContaoEstateManager\Project\Project', 'setFilterParameter');
+    $GLOBALS['TL_HOOKS']['getParameterByTypes'][]       = array('ContaoEstateManager\Project\Project', 'setFilterParameter');
     $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][]  = array('ContaoEstateManager\Project\Project', 'setFilterParameter');
 
     $GLOBALS['TL_HOOKS']['getStatusTokens'][]           = array('ContaoEstateManager\Project\Project', 'addStatusToken');
