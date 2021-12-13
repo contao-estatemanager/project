@@ -46,7 +46,6 @@ if (AddonManager::valid())
 
     $GLOBALS['TL_DCA']['tl_module']['fields']['realEstateProjectTemplate'] = [
         'label' => &$GLOBALS['TL_LANG']['tl_module']['realEstateProjectTemplate'],
-        'default' => 'real_estate_item_default',
         'exclude' => true,
         'inputType' => 'select',
         'options_callback' => static fn () => Controller::getTemplateGroup('real_estate_project_'),
