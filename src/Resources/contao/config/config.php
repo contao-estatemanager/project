@@ -30,13 +30,13 @@ if (AddonManager::valid())
     $GLOBALS['FE_MOD']['estatemanager']['realEstateProjectList'] = 'ContaoEstateManager\Project\ModuleRealEstateProjectList';
 
     // Hooks
-    $GLOBALS['TL_HOOKS']['getTypeParameter'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
-    $GLOBALS['TL_HOOKS']['getParameterByGroups'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
-    $GLOBALS['TL_HOOKS']['getParameterByTypes'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
-    $GLOBALS['TL_HOOKS']['getTypeParameterByGroups'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
+    $GLOBALS['CEM_HOOKS']['getTypeParameter'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
+    $GLOBALS['CEM_HOOKS']['getParameterByGroups'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
+    $GLOBALS['CEM_HOOKS']['getParameterByTypes'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
+    $GLOBALS['CEM_HOOKS']['getTypeParameterByGroups'][] = ['ContaoEstateManager\Project\Project', 'setFilterParameter'];
 
-    $GLOBALS['TL_HOOKS']['getStatusTokens'][] = ['ContaoEstateManager\Project\Project', 'addStatusToken'];
+    $GLOBALS['CEM_HOOKS']['getStatusTokens'][] = ['ContaoEstateManager\Project\Project', 'addStatusToken'];
 
-    $GLOBALS['TL_HOOKS']['compileRealEstateGoogleMap'][] = ['ContaoEstateManager\Project\Project', 'compileGoogleMapConfig'];
-    $GLOBALS['TL_HOOKS']['readEstatesControllerParameter'][] = ['ContaoEstateManager\Project\Project', 'setEstatesControllerParameter'];
+    $GLOBALS['CEM_HOOKS']['compileRealEstateGoogleMap'][] = ['ContaoEstateManager\Project\Project', 'compileGoogleMapConfig'];
+    $GLOBALS['CEM_HOOKS']['readEstatesControllerParameter'][] = ['ContaoEstateManager\Project\Project', 'setEstatesControllerParameter'];
 }
