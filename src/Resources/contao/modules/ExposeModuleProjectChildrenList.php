@@ -17,7 +17,6 @@ use Contao\BackendTemplate;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\FilterSession;
 use ContaoEstateManager\RealEstateModel;
-use Patchwork\Utf8;
 
 /**
  * Expose module "project children list".
@@ -57,7 +56,7 @@ class ExposeModuleProjectChildrenList extends ExposeModule
         if (TL_MODE === 'BE')
         {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### '.Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_children_list'][0]).' ###';
+            $objTemplate->wildcard = '### '.mb_strtoupper($GLOBALS['TL_LANG']['FMD']['project_children_list'][0], 'UTF-8').' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
