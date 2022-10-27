@@ -1,34 +1,37 @@
 <?php
-/**
+
+declare(strict_types=1);
+
+/*
  * This file is part of Contao EstateManager.
  *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/project
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
+ * @see        https://www.contao-estatemanager.com/
+ * @source     https://github.com/contao-estatemanager/project
+ * @copyright  Copyright (c) 2021 Oveleon GbR (https://www.oveleon.de)
+ * @license    https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 namespace ContaoEstateManager\Project;
 
-use Contao\StringUtil;
-use ContaoEstateManager\Translator;
 use ContaoEstateManager\RealEstateModel;
+use ContaoEstateManager\Translator;
 
 /**
- * Class Project
- * @package ContaoEstateManager\Project
+ * Class Project.
+ *
  * @author  Daniele Sciannimanica <daniele@oveleon.de>
  */
 class Project
 {
     /**
-     * Table
+     * Table.
+     *
      * @var string
      */
     private static $strTable = 'tl_real_estate';
 
     /**
-     * Set project filter parameters
+     * Set project filter parameters.
      *
      * @param $arrColumns
      * @param $arrValues
@@ -42,14 +45,14 @@ class Project
         $t = static::$strTable;
 
         // Excluding projects in default lists
-        if($addFragments)
+        if ($addFragments)
         {
             $arrColumns[] = "$t.master=''";
         }
     }
 
     /**
-     * Set mode param for google maps showing projects
+     * Set mode param for google maps showing projects.
      *
      * @param $template
      * @param $mapConfig
@@ -57,7 +60,7 @@ class Project
      */
     public function compileGoogleMapConfig(&$template, &$mapConfig, $context): void
     {
-        if($context->showProjects)
+        if ($context->showProjects)
         {
             $mapConfig['source']['param']['filter'] = false;
             $mapConfig['source']['param']['mode'] = 'project';
@@ -65,7 +68,7 @@ class Project
     }
 
     /**
-     * Set filter parameter for projects by mode
+     * Set filter parameter for projects by mode.
      *
      * @param $arrColumns
      * @param $arrValues
@@ -77,11 +80,11 @@ class Project
     {
         $t = static::$strTable;
 
-        if($currParam['mode'] === 'project')
+        if ('project' === $currParam['mode'])
         {
             foreach ($arrColumns as $key => $column)
             {
-                if(strpos($column, "master=''"))
+                if (strpos($column, "master=''"))
                 {
                     unset($arrColumns[$key]);
                 }
@@ -92,9 +95,9 @@ class Project
     }
 
     /**
-     * Returns project marketing status
+     * Returns project marketing status.
      *
-     * @param  $objMaster
+     * @param $objMaster
      *
      * @return int: marketing status in percent
      */
@@ -102,22 +105,22 @@ class Project
     {
         $t = static::$strTable;
 
-        if(!!$objMaster->referenz)
+        if ((bool) $objMaster->referenz)
         {
             return 100;
         }
 
-        $arrColumns = array(
+        $arrColumns = [
             "$t.published='1'",
             "$t.master=''",
-            "$t.gruppenKennung=?"
-        );
+            "$t.gruppenKennung=?",
+        ];
 
-        $arrValues = array($objMaster->master);
+        $arrValues = [$objMaster->master];
 
-        $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, array());
+        $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, []);
 
-        if($objChildren === null)
+        if (null === $objChildren)
         {
             return 0;
         }
@@ -125,153 +128,149 @@ class Project
         $cntMarketed = 0;
         $cntChildren = $objChildren->count();
 
-        while($objChildren->next())
+        while ($objChildren->next())
         {
-            if(!!$objChildren->referenz || !!$objChildren->vermietet || strtolower($objChildren->verkaufstatus) === 'reserviert' || strtolower($objChildren->verkaufstatus) === 'verkauft')
+            if ((bool) $objChildren->referenz || (bool) $objChildren->vermietet || 'reserviert' === strtolower($objChildren->verkaufstatus) || 'verkauft' === strtolower($objChildren->verkaufstatus))
             {
-                $cntMarketed++;
+                ++$cntMarketed;
             }
         }
 
-        return round((100 / $cntChildren) * $cntMarketed);
+        return round(100 / $cntChildren * $cntMarketed);
     }
 
     /**
-     * Returns project main details as formatted collection
+     * Returns project main details as formatted collection.
      *
      * @param $realEstate
-     *
-     * @return array
      */
     public static function getProjectSpecificDetails($realEstate): array
     {
-        $details = array();
+        $details = [];
 
-        if($realEstate->project_price_from && $realEstate->project_price_to)
+        if ($realEstate->project_price_from && $realEstate->project_price_to)
         {
-            $details['price'] = array(
-                'label'   => Translator::translateLabel('project_price_label'),
-                'details' => $realEstate->getFields(array(
+            $details['price'] = [
+                'label' => Translator::translateLabel('project_price_label'),
+                'details' => $realEstate->getFields([
                     'project_price_from',
-                    'project_price_to'
-                ))
-            );
+                    'project_price_to',
+                ]),
+            ];
         }
-        elseif($realEstate->project_price_from)
+        elseif ($realEstate->project_price_from)
         {
-            $details['price'] = array(
-                'label'   => Translator::translateLabel('project_price_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_price_from'
-                ))
-            );
+            $details['price'] = [
+                'label' => Translator::translateLabel('project_price_label'),
+                'details' => $realEstate->getFields([
+                    'project_price_from',
+                ]),
+            ];
         }
-        elseif($realEstate->project_price_to)
+        elseif ($realEstate->project_price_to)
         {
-            $details['price'] = array(
-                'label'   => Translator::translateLabel('project_price_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_price_to'
-                ))
-            );
+            $details['price'] = [
+                'label' => Translator::translateLabel('project_price_label'),
+                'details' => $realEstate->getFields([
+                    'project_price_to',
+                ]),
+            ];
         }
 
-        if($realEstate->project_area_from && $realEstate->project_area_to)
+        if ($realEstate->project_area_from && $realEstate->project_area_to)
         {
-            $details['area'] = array(
-                'label'   => Translator::translateLabel('project_area_label'),
-                'details' => $realEstate->getFields(array(
+            $details['area'] = [
+                'label' => Translator::translateLabel('project_area_label'),
+                'details' => $realEstate->getFields([
                     'project_area_from',
-                    'project_area_to'
-                ))
-            );
+                    'project_area_to',
+                ]),
+            ];
         }
-        elseif($realEstate->project_area_from)
+        elseif ($realEstate->project_area_from)
         {
-            $details['area'] = array(
-                'label'   => Translator::translateLabel('project_area_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_area_from'
-                ))
-            );
+            $details['area'] = [
+                'label' => Translator::translateLabel('project_area_label'),
+                'details' => $realEstate->getFields([
+                    'project_area_from',
+                ]),
+            ];
         }
-        elseif($realEstate->project_area_to)
+        elseif ($realEstate->project_area_to)
         {
-            $details['area'] = array(
-                'label'   => Translator::translateLabel('project_area_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_area_to'
-                ))
-            );
+            $details['area'] = [
+                'label' => Translator::translateLabel('project_area_label'),
+                'details' => $realEstate->getFields([
+                    'project_area_to',
+                ]),
+            ];
         }
 
-        if($realEstate->project_room_from && $realEstate->project_room_to)
+        if ($realEstate->project_room_from && $realEstate->project_room_to)
         {
-            $details['room'] = array(
-                'label'   => Translator::translateLabel('project_room_label'),
-                'details' => $realEstate->getFields(array(
+            $details['room'] = [
+                'label' => Translator::translateLabel('project_room_label'),
+                'details' => $realEstate->getFields([
                     'project_room_from',
-                    'project_room_to'
-                ))
-            );
+                    'project_room_to',
+                ]),
+            ];
         }
-        elseif($realEstate->project_room_from)
+        elseif ($realEstate->project_room_from)
         {
-            $details['room'] = array(
-                'label'   => Translator::translateLabel('project_room_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_room_from'
-                ))
-            );
+            $details['room'] = [
+                'label' => Translator::translateLabel('project_room_label'),
+                'details' => $realEstate->getFields([
+                    'project_room_from',
+                ]),
+            ];
         }
-        elseif($realEstate->project_room_to)
+        elseif ($realEstate->project_room_to)
         {
-            $details['room'] = array(
-                'label'   => Translator::translateLabel('project_room_label'),
-                'details' => $realEstate->getFields(array(
-                    'project_room_to'
-                ))
-            );
+            $details['room'] = [
+                'label' => Translator::translateLabel('project_room_label'),
+                'details' => $realEstate->getFields([
+                    'project_room_to',
+                ]),
+            ];
         }
 
         return $details;
     }
 
     /**
-     * Returns number of children from master object or child object
+     * Returns number of children from master object or child object.
      *
      * @param $realEstate
-     *
-     * @return int
      */
     public static function getNumberOfChildren($realEstate): int
     {
         // If we have received a master property and the number of units has been transferred, return it directly
-        if(!!$realEstate->master && $realEstate->anzahlWohneinheiten)
+        if ((bool) $realEstate->master && $realEstate->anzahlWohneinheiten)
         {
-            return intval($realEstate->formatter->formatValue('anzahlWohneinheiten'));
+            return (int) ($realEstate->formatter->formatValue('anzahlWohneinheiten'));
         }
 
         $masterId = $realEstate->master ?: $realEstate->gruppenKennung;
 
-        if($masterId)
+        if ($masterId)
         {
             $t = static::$strTable;
 
-            $arrColumns = array(
+            $arrColumns = [
                 "$t.published='1'",
                 "$t.master=''",
-                "$t.gruppenKennung=?"
-            );
+                "$t.gruppenKennung=?",
+            ];
 
-            $arrValues = array($masterId);
+            $arrValues = [$masterId];
 
-            return RealEstateModel::countPublishedBy($arrColumns, $arrValues, array());
+            return RealEstateModel::countPublishedBy($arrColumns, $arrValues, []);
         }
     }
 
     /**
-     * Add status token for projects
+     * Add status token for projects.
      *
      * @param $validStatusToken
      * @param $arrStatusTokens
@@ -279,12 +278,12 @@ class Project
      */
     public function addStatusToken($validStatusToken, &$arrStatusTokens, $context): void
     {
-        if (in_array('project', $validStatusToken) && $context->objRealEstate->gruppenKennung)
+        if (\in_array('project', $validStatusToken, true) && $context->objRealEstate->gruppenKennung)
         {
-            $arrStatusTokens[] = array(
+            $arrStatusTokens[] = [
                 'value' => Translator::translateValue('project'),
-                'class' => 'project'
-            );
+                'class' => 'project',
+            ];
         }
     }
 }

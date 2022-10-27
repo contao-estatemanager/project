@@ -1,11 +1,14 @@
 <?php
-/**
+
+declare(strict_types=1);
+
+/*
  * This file is part of Contao EstateManager.
  *
- * @link      https://www.contao-estatemanager.com/
- * @source    https://github.com/contao-estatemanager/project
- * @copyright Copyright (c) 2019  Oveleon GbR (https://www.oveleon.de)
- * @license   https://www.contao-estatemanager.com/lizenzbedingungen.html
+ * @see        https://www.contao-estatemanager.com/
+ * @source     https://github.com/contao-estatemanager/project
+ * @copyright  Copyright (c) 2021 Oveleon GbR (https://www.oveleon.de)
+ * @license    https://www.contao-estatemanager.com/lizenzbedingungen.html
  */
 
 namespace ContaoEstateManager\Project;
@@ -14,7 +17,6 @@ use Contao\BackendTemplate;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\FilterSession;
 use ContaoEstateManager\RealEstateModel;
-use Patchwork\Utf8;
 
 /**
  * Expose module "project children list".
@@ -24,38 +26,41 @@ use Patchwork\Utf8;
 class ExposeModuleProjectChildrenList extends ExposeModule
 {
     /**
-     * Table name
+     * Table name.
+     *
      * @var string
      */
     protected $strTable = 'tl_real_estate';
 
     /**
-     * Filter session object
+     * Filter session object.
+     *
      * @var FilterSession
      */
     protected $objFilterSession;
 
     /**
-     * Template
+     * Template.
+     *
      * @var string
      */
     protected $strTemplate = 'expose_mod_project_children_list';
 
     /**
-     * Do not display the module if there are no real estate children
+     * Do not display the module if there are no real estate children.
      *
      * @return string
      */
     public function generate()
     {
-        if (TL_MODE == 'BE')
+        if (TL_MODE === 'BE')
         {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['project_children_list'][0]) . ' ###';
+            $objTemplate->wildcard = '### '.mb_strtoupper($GLOBALS['TL_LANG']['FMD']['project_children_list'][0], 'UTF-8').' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
-            $objTemplate->href = 'contao/main.php?do=expose_module&amp;act=edit&amp;id=' . $this->id;
+            $objTemplate->href = 'contao/main.php?do=expose_module&amp;act=edit&amp;id='.$this->id;
 
             return $objTemplate->parse();
         }
@@ -64,36 +69,36 @@ class ExposeModuleProjectChildrenList extends ExposeModule
 
         $strBuffer = parent::generate();
 
-        return ($this->isEmpty) ? '' : $strBuffer;
+        return $this->isEmpty ? '' : $strBuffer;
     }
 
     /**
-     * Generate the module
+     * Generate the module.
      */
-    protected function compile()
+    protected function compile(): void
     {
         $this->isEmpty = true;
 
         // skip non project real estates
-        if(!$this->realEstate->master)
+        if (!$this->realEstate->master)
         {
             return;
         }
 
-        list($arrColumns, $arrValues, $arrOptions) = $this->objFilterSession->getParameter(null, null, !!$this->childrenObserveFiltering);
+        [$arrColumns, $arrValues, $arrOptions] = $this->objFilterSession->getParameter(null, null, (bool) $this->childrenObserveFiltering);
 
         $arrColumns[] = "$this->strTable.gruppenKennung=?";
         $arrColumns[] = "$this->strTable.master=''";
-        $arrValues[]  = $this->realEstate->master;
+        $arrValues[] = $this->realEstate->master;
 
         $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
 
-        if($objChildren !== null)
+        if (null !== $objChildren)
         {
             $this->isEmpty = false;
-            $realEstates = array();
+            $realEstates = [];
 
-            while($objChildren->next())
+            while ($objChildren->next())
             {
                 $realEstates[] = $this->parseRealEstate($objChildren->current());
             }
