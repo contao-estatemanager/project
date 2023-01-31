@@ -48,6 +48,11 @@
         <source>No projects are currently under construction.</source>
         <target>Derzeit befinden sich keine Projekte im Bau.</target>
       </trans-unit>
+
+      <trans-unit id="tl_real_estate_misc.hideUnits">
+        <source>Hide residential units</source>
+        <target>Wohneinheiten ausblenden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -49,6 +49,11 @@ class Project
         {
             $arrColumns[] = "$t.master=''";
         }
+
+        if ('hideUnits' === $mode)
+        {
+            $arrColumns[] = "$t.gruppenKennung=''";
+        }
     }
 
     /**

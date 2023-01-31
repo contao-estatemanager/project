@@ -37,6 +37,10 @@
       <trans-unit id="tl_real_estate_project_misc.noProjectResults">
         <source>No projects are currently under construction.</source>
       </trans-unit>
+
+      <trans-unit id="tl_real_estate_misc.hideUnits">
+        <source>Hide residential units</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>
