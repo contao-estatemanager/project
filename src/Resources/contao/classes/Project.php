@@ -38,9 +38,10 @@ class Project
      * @param $arrOptions
      * @param $mode
      * @param $addFragments
+     * @param $objModule
      * @param $context
      */
-    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $context): void
+    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $objModule, $context): void
     {
         $t = static::$strTable;
 

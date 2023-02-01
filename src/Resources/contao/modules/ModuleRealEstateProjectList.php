@@ -138,7 +138,9 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
         {
             [$arrColumns, $arrValues, $arrOptions] = $this->objFilterSession->getParameter($this->realEstateGroups, $this->filterMode, (bool) $this->childrenObserveFiltering);
 
-            $arrColumns[] = "$this->strTable.gruppenKennung IN(".implode(',', $projectIds).')';
+            $queryProjects =  "'".implode("','", $projectIds)."'";
+
+            $arrColumns[] = "$this->strTable.gruppenKennung IN(".$queryProjects.')';
             $arrColumns[] = "$this->strTable.master=''";
 
             $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
