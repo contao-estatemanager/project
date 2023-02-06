@@ -56,13 +56,6 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
     protected $strTemplate = 'mod_realEstateProjectList';
 
     /**
-     * Template.
-     *
-     * @var string
-     */
-    protected $strProjectTemplate = 'real_estate_project_default';
-
-    /**
      * Do not display the module if there are no real estates.
      *
      * @return string
@@ -106,6 +99,8 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
      */
     protected function compile(): void
     {
+        $strProjectTemplate = $this->realEstateProjectTemplate ?: 'real_estate_project_default';
+
         $this->addSorting();
 
         [$arrColumns, $arrValues, $arrOptions] = $this->getProjectParameters();
@@ -171,7 +166,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             while ($objProjects->next())
             {
                 $realEstate = new RealEstateModulePreparation($objProjects->current(), $this, null);
-                $objTemplate = new FrontendTemplate($this->strProjectTemplate);
+                $objTemplate = new FrontendTemplate($strProjectTemplate);
 
                 $objTemplate->realEstate = $realEstate;
                 $objTemplate->children = $arrProjects[$objProjects->master]['children'] ?: [];
