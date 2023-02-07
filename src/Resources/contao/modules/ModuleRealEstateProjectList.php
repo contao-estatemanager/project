@@ -144,7 +144,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             if ((bool) $this->childrenObserveFiltering)
             {
                 $arrNumberOfChildren = [];
-                $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(".implode(',', $projectIds).") AND master='' GROUP BY gruppenKennung");
+                $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(".$queryProjects.") AND master='' GROUP BY gruppenKennung");
 
                 while ($objNumberOfChildren->next())
                 {
