@@ -56,13 +56,6 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
     protected $strTemplate = 'mod_realEstateProjectList';
 
     /**
-     * Template.
-     *
-     * @var string
-     */
-    protected $strProjectTemplate = 'real_estate_project_default';
-
-    /**
      * Do not display the module if there are no real estates.
      *
      * @return string
@@ -106,6 +99,8 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
      */
     protected function compile(): void
     {
+        $strProjectTemplate = $this->realEstateProjectTemplate ?: 'real_estate_project_default';
+
         $this->addSorting();
 
         [$arrColumns, $arrValues, $arrOptions] = $this->getProjectParameters();
@@ -138,7 +133,9 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
         {
             [$arrColumns, $arrValues, $arrOptions] = $this->objFilterSession->getParameter($this->realEstateGroups, $this->filterMode, (bool) $this->childrenObserveFiltering);
 
-            $arrColumns[] = "$this->strTable.gruppenKennung IN(".implode(',', $projectIds).')';
+            $queryProjects =  "'".implode("','", $projectIds)."'";
+
+            $arrColumns[] = "$this->strTable.gruppenKennung IN(".$queryProjects.')';
             $arrColumns[] = "$this->strTable.master=''";
 
             $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
@@ -147,7 +144,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
             if ((bool) $this->childrenObserveFiltering)
             {
                 $arrNumberOfChildren = [];
-                $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(".implode(',', $projectIds).") AND master='' GROUP BY gruppenKennung");
+                $objNumberOfChildren = $this->Database->execute("SELECT COUNT(id) as cnt, gruppenKennung FROM $this->strTable WHERE gruppenKennung IN(".$queryProjects.") AND master='' GROUP BY gruppenKennung");
 
                 while ($objNumberOfChildren->next())
                 {
@@ -166,13 +163,22 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
             $objProjects->reset();
 
-            while ($objProjects->next())
+            if (isset($GLOBALS['TL_HOOKS']['compileRealEstateProject']) && \is_array($GLOBALS['TL_HOOKS']['compileRealEstateProject']))
             {
-                $realEstate = new RealEstateModulePreparation($objProjects->current(), $this, null);
-                $objTemplate = new FrontendTemplate($this->strProjectTemplate);
+                foreach ($GLOBALS['TL_HOOKS']['compileRealEstateProject'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    $this->{$callback[0]}->{$callback[1]}($objProjects, $arrProjects, $this);
+                }
+            }
+
+            foreach ($objProjects as $objProject)
+            {
+                $realEstate  = new RealEstateModulePreparation($objProject, $this,null);
+                $objTemplate = new FrontendTemplate($strProjectTemplate);
 
                 $objTemplate->realEstate = $realEstate;
-                $objTemplate->children = $arrProjects[$objProjects->master]['children'] ?: [];
+                $objTemplate->children = $arrProjects[$objProject->master]['children'] ?: [];
                 $objTemplate->jumpTo = $this->jumpToProject;
                 $objTemplate->imgSize = $this->projectImgSize;
                 $objTemplate->details = Project::getProjectSpecificDetails($realEstate);
@@ -187,11 +193,11 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 }
                 elseif ((bool) $this->childrenObserveFiltering)
                 {
-                    $objTemplate->numberOfChildren = $arrNumberOfChildren[$objProjects->master];
+                    $objTemplate->numberOfChildren = $arrNumberOfChildren[$objProject->master];
                 }
                 else
                 {
-                    $objTemplate->numberOfChildren = \count($arrProjects[$objProjects->master]['children']);
+                    $objTemplate->numberOfChildren = \count($arrProjects[$objProject->master]['children']);
                 }
 
                 // add provider

@@ -38,9 +38,10 @@ class Project
      * @param $arrOptions
      * @param $mode
      * @param $addFragments
+     * @param $objModule
      * @param $context
      */
-    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $context): void
+    public function setFilterParameter(&$arrColumns, &$arrValues, &$arrOptions, $mode, $addFragments, $objModule, $context): void
     {
         $t = static::$strTable;
 
@@ -48,6 +49,11 @@ class Project
         if ($addFragments)
         {
             $arrColumns[] = "$t.master=''";
+        }
+
+        if ('hideUnits' === $mode)
+        {
+            $arrColumns[] = "$t.gruppenKennung=''";
         }
     }
 
@@ -101,7 +107,7 @@ class Project
      *
      * @return int: marketing status in percent
      */
-    public static function getProjectMarketingStatus($objMaster): int
+    public static function getProjectMarketingStatus($objMaster)
     {
         $t = static::$strTable;
 
@@ -243,7 +249,7 @@ class Project
      *
      * @param $realEstate
      */
-    public static function getNumberOfChildren($realEstate): int
+    public static function getNumberOfChildren($realEstate)
     {
         // If we have received a master property and the number of units has been transferred, return it directly
         if ((bool) $realEstate->master && $realEstate->anzahlWohneinheiten)
