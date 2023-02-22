@@ -167,16 +167,25 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
             $objProjects->reset();
 
-            while ($objProjects->next())
+            if (isset($GLOBALS['CEM_HOOKS']['compileRealEstateProject']) && \is_array($GLOBALS['CEM_HOOKS']['compileRealEstateProject']))
             {
-                $realEstate = new RealEstateModulePreparation($objProjects->current(), $this, null);
+                foreach ($GLOBALS['CEM_HOOKS']['compileRealEstateProject'] as $callback)
+                {
+                    $this->import($callback[0]);
+                    $this->{$callback[0]}->{$callback[1]}($objProjects, $arrProjects, $this);
+                }
+            }
+
+            foreach($objProjects as $objProject)
+            {
+                $realEstate  = new RealEstateModulePreparation($objProject, $this,null);
                 $objTemplate = new FrontendTemplate($this->strProjectTemplate);
 
-                $objTemplate->realEstate = $realEstate;
-                $objTemplate->children = $arrProjects[$objProjects->master]['children'] ?: [];
-                $objTemplate->jumpTo = $this->jumpToProject;
-                $objTemplate->imgSize = $this->projectImgSize;
-                $objTemplate->details = Project::getProjectSpecificDetails($realEstate);
+                $objTemplate->realEstate   = $realEstate;
+                $objTemplate->children     = $arrProjects[ $objProject->master ]['children'] ?: array();
+                $objTemplate->jumpTo       = $this->jumpToProject;
+                $objTemplate->imgSize      = $this->projectImgSize;
+                $objTemplate->details      = Project::getProjectSpecificDetails($realEstate);
 
                 $objTemplate->buttonLabel = Translator::translateExpose('button_project');
                 $objTemplate->labelChildren = Translator::translateLabel('project_children_label');
@@ -188,11 +197,11 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
                 }
                 elseif ((bool) $this->childrenObserveFiltering)
                 {
-                    $objTemplate->numberOfChildren = $arrNumberOfChildren[$objProjects->master];
+                    $objTemplate->numberOfChildren = $arrNumberOfChildren[ $objProject->master ];
                 }
                 else
                 {
-                    $objTemplate->numberOfChildren = \count($arrProjects[$objProjects->master]['children']);
+                    $objTemplate->numberOfChildren = count($arrProjects[ $objProject->master ]['children']);
                 }
 
                 // add provider
