@@ -105,7 +105,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
 
         [$arrColumns, $arrValues, $arrOptions] = $this->getProjectParameters();
         
-        $arrOptions['order'] = (\Config::get('defaultSorting') ?: 'tstamp') . ' DESC';
+        $arrOptions['order'] = (Config::get('defaultSorting') ?: 'tstamp') . ' DESC';
 
         $cntProjects = RealEstateModel::countPublishedBy($arrColumns, $arrValues, $arrOptions);
 
@@ -135,7 +135,7 @@ class ModuleRealEstateProjectList extends ModuleRealEstate
         {
             [$arrColumns, $arrValues, $arrOptions] = $this->objFilterSession->getParameter($this->realEstateGroups, $this->filterMode, (bool) $this->childrenObserveFiltering);
 
-            $arrOptions['order'] = (\Config::get('defaultSorting') ?: 'tstamp') . ' DESC';
+            $arrOptions['order'] = (Config::get('defaultSorting') ?: 'tstamp') . ' DESC';
 
             $queryProjects =  "'".implode("','", $projectIds)."'";
 

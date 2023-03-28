@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ContaoEstateManager\Project;
 
 use Contao\BackendTemplate;
+use Contao\Config;
 use ContaoEstateManager\ExposeModule;
 use ContaoEstateManager\FilterSession;
 use ContaoEstateManager\RealEstateModel;
@@ -90,6 +91,8 @@ class ExposeModuleProjectChildrenList extends ExposeModule
         $arrColumns[] = "$this->strTable.gruppenKennung=?";
         $arrColumns[] = "$this->strTable.master=''";
         $arrValues[] = $this->realEstate->master;
+
+        $arrOptions['order'] = (Config::get('defaultSorting') ?: 'tstamp') . ' DESC';
 
         $objChildren = RealEstateModel::findPublishedBy($arrColumns, $arrValues, $arrOptions);
 
